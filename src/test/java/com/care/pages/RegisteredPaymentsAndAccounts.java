@@ -13,7 +13,7 @@ import com.pfs.test.base.TestBase;
  */
 public class RegisteredPaymentsAndAccounts extends TestBase {
 
-	@FindBy(how = How.XPATH, using = "//span[@class='ddmenuicon collapsed']") 		public WebElement CapacityPlanningCollapsed;
+	@FindBy(how = How.XPATH, using = "//button[@id='mainForm:addBt']//span[contains(text(),'Add payment type')]") 		public WebElement addPaymentType;
 	
 
 	

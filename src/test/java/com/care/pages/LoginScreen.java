@@ -20,6 +20,7 @@ public class LoginScreen {
 	
 	public LoginScreen() {
 		ExecutionLog.log("==========| Login Page |==========");
+		initSession();
 		PageFactory.initElements(TestBase.getDriver(), this);
 	}
 

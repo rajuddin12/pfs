@@ -3,9 +3,11 @@ package com.care.testengine;
 import org.testng.annotations.Test;
 
 import com.care.pages.RegisteredPaymentsAndAccounts;
+import com.care.pages.AddPaymentTypePage;
 import com.care.pages.LoginScreen;
 import com.pfs.reporting.ExecutionLog;
 import com.pfs.test.base.TestBase;
+import com.pfs.utility.CommonMethods;
 
 public class RegisteredPaymentsAndAccountsTest extends TestBase {
 
@@ -33,10 +35,10 @@ public class RegisteredPaymentsAndAccountsTest extends TestBase {
 	}
 
 	@Test(description = "Add Account", groups = "Regression", enabled = true)
-	public void TC1_AddAccount() {
-		try {
+	public void TC1_AddAccount() throws Exception {
+		//try {
 
-			initSession();
+			//initSession();
 			driver = TestBase.setDriver(browser, appURL);
 			LoginScreen login = new LoginScreen();
 			ExecutionLog.log(adminUserName + "adminUserName");
@@ -48,10 +50,35 @@ public class RegisteredPaymentsAndAccountsTest extends TestBase {
 			ExecutionLog.log("*Logged-In with Admin user: " + adminUserName);
 			ExecutionLog.log("****************************************");
 
+			
+			
+			RegisteredPaymentsAndAccounts registeredPaymentsAndAccounts = new RegisteredPaymentsAndAccounts();
+			registeredPaymentsAndAccounts.addPaymentType.click();
+			Thread.sleep(5000);
+			AddPaymentTypePage addPaymentTypePage = new AddPaymentTypePage();
+			
+			
+			CommonMethods.selectValueFromDropDown(addPaymentTypePage.rowSelectorForPaymentType, "100", "rowSelectorForPaymentType");
+			Thread.sleep(10000);
+			
+			CommonMethods.getElement(addPaymentTypePage.loc_accountType).click();
+			Thread.sleep(10000);
+			addPaymentTypePage.next.click();
+			Thread.sleep(5000);
+			addPaymentTypePage = new AddPaymentTypePage();
+			addPaymentTypePage.accountNumberField.sendKeys(accountNumber);
+			Thread.sleep(5000);
+			addPaymentTypePage.next.click();
+			Thread.sleep(5000);
+			addPaymentTypePage.done.click();
+			
+			Thread.sleep(20000);
+			
+		/*	
 		} catch (Exception e) {
 			e.printStackTrace();
 			ExecutionLog.log("test");
-		}
+		}*/
 
 	}
 
