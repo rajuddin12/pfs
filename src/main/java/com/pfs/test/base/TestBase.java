@@ -29,17 +29,15 @@ public class TestBase  {
 	
 	public static String appURL = "";
 	
+	public static String paymentType ;
 	public static String adminUserName ;
 	public static String adminPass ;
-	public static String nonAdminUserName ;
-	public static String nonAdminPass ;
-	public static String accountType ;
 	public static String accountNumber ;
-	public static String browser = "";
+	public static String editAccountNumber ;
+	
+	public static String browser = "chrome"; // Need to update in config.properties file
 	public static String path;
-	public static String sheetName;
-	public static String forecast_CreatedBy_adminUserName;
-	public static String forecast_CreatedBy_NonadminUserName; 	
+	public static String sheetName; 	
 	public static String curentPageID; 	
 	public static Boolean TestClassStatus; 	
 	public static Boolean TestCaseStatus;
@@ -68,16 +66,12 @@ public class TestBase  {
 	public static void initSession(){
 		try {
 			String filePath = System.getProperty("user.dir") + File.separator + "\\PFSTestData.xlsx";
-			browser				= ReadExcel.getCellData(1, 1, "Login", filePath);
-			appURL				= ReadExcel.getCellData(2, 1, "Login", filePath);
-			adminUserName 		= ReadExcel.getCellData(3, 1, "Login", filePath);
-			adminPass 			= ReadExcel.getCellData(4, 1, "Login", filePath);
-			nonAdminUserName 	= ReadExcel.getCellData(5, 1, "Login", filePath);
-			nonAdminPass 		= ReadExcel.getCellData(6, 1, "Login", filePath);
-			accountType 		= ReadExcel.getCellData(7, 1, "Login", filePath);
-			accountNumber 		= ReadExcel.getCellData(8, 1, "Login", filePath);
-			
-			
+			paymentType				= ReadExcel.getCellData(1, 0, "ActiveData_SingleUser", filePath);
+			appURL				= ReadExcel.getCellData(1, 1, "ActiveData_SingleUser", filePath);
+			adminUserName 		= ReadExcel.getCellData(1, 2, "ActiveData_SingleUser", filePath);
+			adminPass 			= ReadExcel.getCellData(1, 3, "ActiveData_SingleUser", filePath);
+			accountNumber 		= ReadExcel.getCellData(1, 4, "ActiveData_SingleUser", filePath);
+			editAccountNumber 		= ReadExcel.getCellData(1, 5, "ActiveData_SingleUser", filePath);			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

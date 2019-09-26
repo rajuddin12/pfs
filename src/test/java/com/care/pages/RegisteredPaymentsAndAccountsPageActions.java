@@ -11,13 +11,14 @@ import com.pfs.test.base.TestBase;
  * This class contains all possible UI elements (and its actions) of RegisteredPaymentsAndAccounts Page
  *
  */
-public class RegisteredPaymentsAndAccounts extends TestBase {
+public class RegisteredPaymentsAndAccountsPageActions extends TestBase {
 
 	@FindBy(how = How.XPATH, using = "//button[@id='mainForm:addBt']//span[contains(text(),'Add payment type')]") 		public WebElement addPaymentType;
-	
+	public String loc_accountNumber = "//td[contains(text(),'" + paymentType  +"')]/..//td/div[text()='" + accountNumber + "']";
+
 
 	
-	public RegisteredPaymentsAndAccounts() {
+	public RegisteredPaymentsAndAccountsPageActions() {
 		ExecutionLog.log("==========| Registered Payments And Accounts Page |==========");	
 		PageFactory.initElements(driver, this);
 	}
