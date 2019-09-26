@@ -24,7 +24,8 @@ import com.relevantcodes.extentreports.LogStatus;
 public class TestBase  {
 
 	public static WebDriver driver = null;
-	private static String driverPath = "\\workspace\\CARE_Automation\\Drivers\\";
+	public static String currentDir = System.getProperty("user.dir");
+	private static String driverPath = currentDir + File.separator + "Drivers" + File.separator;
 	
 	
 	public static String appURL = "";
@@ -41,7 +42,7 @@ public class TestBase  {
 	public static String curentPageID; 	
 	public static Boolean TestClassStatus; 	
 	public static Boolean TestCaseStatus;
-	public static ExtentReports report = new ExtentReports(System.getProperty("user.dir") + "\\TestReport\\pfs-Automaton-Report_" + DateTimeHelper.getCurrentDateTime() + ".html");;
+	public static ExtentReports report = new ExtentReports(currentDir + File.separator +"TestReport" + File.separator + "pfs-Automaton-Report_" + DateTimeHelper.getCurrentDateTime() + ".html");;
 	
 	public void navigateToScreen() {
 		ExecutionLog.log("Test Base Screen");
