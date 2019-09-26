@@ -22,13 +22,13 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 
 	public String loc_paymentType = "//span[contains(text(),'@paymentType')]";
 
-	public String loc_accountType = "//span[contains(text(),'" + paymentType  +"')]";
-	public String txt_account = "//td[contains(text(),'"+ accountNumber +"')]";
+	public String loc_accountType = "//span[contains(text(),'" + var_paymentType  +"')]";
+	public String txt_account = "//td[contains(text(),'"+ var_accountNumber +"')]";
 	public String btn_next = "//span[contains(text(),'Next')]";
 	public String btn_save = "//span[contains(text(),'Save')]";
-	public String inp_account_num = "//input[@value='"+accountNumber+"']";
+	public String inp_account_num = "//input[@value='"+var_accountNumber+"']";
 	public String btn_done = "//span[contains(text(),'Done')]";
-	public String txt_edit_account = "//span[contains(text(),'"+editAccountNumber+"')]";
+	public String txt_edit_account = "//span[contains(text(),'"+var_editAccountNumber+"')]";
 	
 	public AddEditAndRemovePaymentTypePageActions() {
 		ExecutionLog.log("==========| AddPaymentTypePage |==========");	
@@ -50,9 +50,9 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 			CommonMethods.getElement(btn_next).click();
 			
 		}
-		CommonMethods.getElement(inp_account_num).sendKeys(editAccountNumber);
+		CommonMethods.getElement(inp_account_num).sendKeys(var_editAccountNumber);
 		CommonMethods.getElement(btn_save).click();
-		CommonMethods.verifyTextOf(CommonMethods.getElement(txt_edit_account), editAccountNumber, "Edit Account Number");
+		CommonMethods.verifyTextOf(CommonMethods.getElement(txt_edit_account), var_editAccountNumber, "Edit Account Number");
 	}
 	
 	/**

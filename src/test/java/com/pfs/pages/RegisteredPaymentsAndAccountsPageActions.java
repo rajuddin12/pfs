@@ -18,7 +18,7 @@ public class RegisteredPaymentsAndAccountsPageActions extends TestBase {
 	public String loc_accountNumber = "//td[contains(text(),'@paymentType')]/..//td/div[text()='@accountNumber']";
 
 	//public String loc_accountNumber = "//td[contains(text(),'" + paymentType  +"')]/..//td/div[text()='" + accountNumber + "']";
-	public String radio_paymentType = "//td[text()='" + paymentType  +"']/../td/div[contains(@class,'radiobutton')]";
+	public String radio_paymentType = "//td[text()='" + var_paymentType  +"']/../td/div[contains(@class,'radiobutton')]";
 	public String btn_edit = "//span[contains(text(),'Edit')]";
 	
 	

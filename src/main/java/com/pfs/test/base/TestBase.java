@@ -29,13 +29,13 @@ public class TestBase  {
 	private static String driverPath = currentDir + File.separator + "Drivers" + File.separator;
 	
 	
-	public static String appURL = "";
+	public static String var_appURL = "";
+	public static String var_paymentType ;
+	public static String var_adminUserName ;
+	public static String var_adminPass ;
+	public static String var_accountNumber ;
+	public static String var_editAccountNumber ;
 	
-	public static String paymentType ;
-	public static String adminUserName ;
-	public static String adminPass ;
-	public static String accountNumber ;
-	public static String editAccountNumber ;
 	public static String filePath;
 	
 	public static String browser = "chrome"; // Need to update in config.properties file
@@ -71,12 +71,12 @@ public class TestBase  {
 			
 			filePath = System.getProperty("user.dir") + File.separator + "\\PFSTestData.xlsx";
 			sheetName  = "ActiveData_SingleUser";
-			paymentType			= ReadExcel.getCellData(1, 0, sheetName, filePath);
-			appURL				= ReadExcel.getCellData(1, 1, sheetName, filePath);
-			adminUserName 		= ReadExcel.getCellData(1, 2, sheetName, filePath);
-			adminPass 			= ReadExcel.getCellData(1, 3, sheetName, filePath);
-			accountNumber 		= ReadExcel.getCellData(1, 4, sheetName, filePath);
-			editAccountNumber 	= ReadExcel.getCellData(1, 5, sheetName, filePath);			
+			var_paymentType			= ReadExcel.getCellData(1, 0, sheetName, filePath);
+			var_appURL				= ReadExcel.getCellData(1, 1, sheetName, filePath);
+			var_adminUserName 		= ReadExcel.getCellData(1, 2, sheetName, filePath);
+			var_adminPass 			= ReadExcel.getCellData(1, 3, sheetName, filePath);
+			var_accountNumber 		= ReadExcel.getCellData(1, 4, sheetName, filePath);
+			var_editAccountNumber 	= ReadExcel.getCellData(1, 5, sheetName, filePath);			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,7 +91,7 @@ public class TestBase  {
 	 * @return Web-driver instance 
 	 */
 	public static WebDriver setDriver() {
-		return setDriver(browser, appURL);
+		return setDriver(browser, var_appURL);
 		
 	}
 	
@@ -108,7 +108,7 @@ public class TestBase  {
 			browserType = browser;
 
 		if(appURL.equals(""))
-			appURL = TestBase.appURL;
+			appURL = TestBase.var_appURL;
 		
 		switch (browserType.toLowerCase()) {
 		case "chrome":

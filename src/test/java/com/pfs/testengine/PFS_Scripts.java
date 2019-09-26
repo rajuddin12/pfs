@@ -53,7 +53,7 @@ public class PFS_Scripts extends TestBase {
 	
 	@Test(dataProvider= "PFSTestData", groups = "Regression", enabled = true)
 	public void TC1_AddAccount(String paymentType, String appURL, String userName, String pass, String accountNumber, String editAccountNumber) throws Exception {
-		
+		paymentType = paymentType;
 		initSession();
 		driver = TestBase.setDriver(browser, appURL);
 		LoginLogoutPageActions login = new LoginLogoutPageActions();
@@ -92,17 +92,17 @@ public class PFS_Scripts extends TestBase {
 
 	@Test(description="Edit Account", priority=2)
 	public void TC2_EditAccount() {
-		driver = TestBase.setDriver(browser, appURL);
+		driver = TestBase.setDriver(browser, var_appURL);
 		LoginLogoutPageActions login = new LoginLogoutPageActions();
-		ExecutionLog.log(adminUserName + "adminUserName");
-		ExecutionLog.log(adminPass + "adminPass");
-		login.getLogin(adminUserName, adminPass);
+		ExecutionLog.log(var_adminUserName + "adminUserName");
+		ExecutionLog.log(var_adminPass + "adminPass");
+		login.getLogin(var_adminUserName, var_adminPass);
 
 		ExecutionLog.log("****************************************");
-		ExecutionLog.log("*URL:	" + appURL);
+		ExecutionLog.log("*URL:	" + var_appURL);
 		
 		RegisteredPaymentsAndAccountsPageActions registeredPaymentsAndAccounts = new RegisteredPaymentsAndAccountsPageActions();
-		registeredPaymentsAndAccounts.selectPaymentType(paymentType);
+		registeredPaymentsAndAccounts.selectPaymentType(var_paymentType);
 		registeredPaymentsAndAccounts.clickOnEditButton();
 		
 		AddEditAndRemovePaymentTypePageActions addPaymentTypePage = new AddEditAndRemovePaymentTypePageActions();			
