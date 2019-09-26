@@ -64,12 +64,12 @@ public class CommonMethods extends TestBase {
 		}
 		return driver.findElements(by);
 	}
-	
+
 	public static void acceptAlert(WebDriver driver) {
 		driver.switchTo().alert().accept();		
-	
+
 	}
-	
+
 	/**
 	 * Return alert text
 	 * @param driver
@@ -77,14 +77,27 @@ public class CommonMethods extends TestBase {
 	 */
 	public static String getAlertText(WebDriver driver) {
 		return driver.switchTo().alert().getText();		
-	
+
 	}
-	
+
 
 	public static void clickOn(WebElement element, String elementName) {
 		element.click();
 		ExecutionLog.log("Clicked on the " + elementName);
 	}
+
+	public void clickOn(String locator, String webElementNameOfLocator) throws Exception {
+
+		getElement(locator).click();
+		ExecutionLog.log("Clicked on the '" + webElementNameOfLocator + "'");
+	}
+
+	public void sendKeys(String locator, String TestData, String webElementNameOfLocator) throws Exception {
+		getElement(locator).clear();
+		getElement(locator).sendKeys(TestData);
+		ExecutionLog.log("Entered \"" + TestData + "\" in field '" + webElementNameOfLocator + "'");
+	}
+
 
 	public static WebElement clickOndisplayedElement(String locator, String elementName) {
 		List<WebElement> allElements = getElements(locator);
@@ -153,16 +166,16 @@ public class CommonMethods extends TestBase {
 		ExecutionLog.log("Entered " + testData + " in " + elementName);
 
 	}
-	
+
 	/**
 	 * Press enter
 	 * @param element
 	 */
 	public static void pressEnter(WebElement element) {
 		element.sendKeys(Keys.ENTER);
-		
+
 	}
-	
+
 	/**
 	 * @author Rajuddin
 	 * @param Locator
@@ -214,9 +227,9 @@ public class CommonMethods extends TestBase {
 	 */
 	public static String getValueOfElement(WebElement e) {
 		return e.getAttribute("value");
-		
+
 	}
-	
+
 	/**
 	 * This Method can be used for:
 	 * Element is Editable
@@ -362,14 +375,14 @@ public class CommonMethods extends TestBase {
 		try { 
 			if(elements.size() > 0) {
 				Assert.assertFalse(elements.get(0).isDisplayed(), "[ASSERTION FAILED] " + elementName + " is displayed.");
-				
+
 			}
-				ExecutionLog.log("Verified " + elementName + " is not Present");
+			ExecutionLog.log("Verified " + elementName + " is not Present");
 		} catch (AssertionError e) {
 			ExecutionLog.log("[Failed]: " + elementName + " is Present");
 			exceptionController(e);
 		}
-		
+
 	}
 
 	/**
@@ -396,13 +409,13 @@ public class CommonMethods extends TestBase {
 	 */
 	public static void ensureVisibilityOf(WebElement element, String elementName) {
 		try { 
-		Assert.assertTrue(element.isDisplayed(), "[ASSERTION FAILED] " + elementName + " is NOT displayed.");
-		ExecutionLog.log("Verified that '" + elementName + "' is Displayed");
+			Assert.assertTrue(element.isDisplayed(), "[ASSERTION FAILED] " + elementName + " is NOT displayed.");
+			ExecutionLog.log("Verified that '" + elementName + "' is Displayed");
 		} catch (AssertionError e) {
 			ExecutionLog.log("[ASSERTION FAILED]: '" + elementName + "' is NOT Displayed");
 			exceptionController(e);
 		}
-		
+
 
 	}
 
@@ -414,7 +427,7 @@ public class CommonMethods extends TestBase {
 			ExecutionLog.log("[ASSERTION FAILED]: '" + elementName + "' is Displayed");
 			exceptionController(e);
 		}
-		
+
 
 	}
 
@@ -445,7 +458,7 @@ public class CommonMethods extends TestBase {
 			ExecutionLog.log("[ASSERTION FAILED]: element - " + elementName + " is disabled." );
 			exceptionController(e);
 		}
-		
+
 	}
 
 	public static void equalLists(List<String> actualDataFromApp, List<String> expectedData, String elementName){     
@@ -560,7 +573,7 @@ public class CommonMethods extends TestBase {
 			exceptionController(e);
 		}
 	}
-	
+
 	public static void assertTrue(Boolean flag, String msgOnFailures) {
 		try {
 			Assert.assertTrue(flag, msgOnFailures);
@@ -568,7 +581,7 @@ public class CommonMethods extends TestBase {
 			exceptionController(e);
 		}
 	}
-	
+
 	public static void assertFalse(Boolean flag, String msgOnFailures) {
 		try {
 			Assert.assertFalse(flag, msgOnFailures);
@@ -585,7 +598,7 @@ public class CommonMethods extends TestBase {
 		// Print stackTrace in console
 		e.printStackTrace();
 	}
-	
+
 	/**
 	 * Get random float number starting from @start to @end  
 	 * @param start
@@ -598,12 +611,12 @@ public class CommonMethods extends TestBase {
 		System.out.println("Generated number: " + random);
 		double finalNumber = 0.0;
 		try {
-		     finalNumber = Double.parseDouble(random); 
-		     return finalNumber;
+			finalNumber = Double.parseDouble(random); 
+			return finalNumber;
 		}catch(Exception e) {System.out.println("Problem in parsing.");}
 		System.out.println("Generated number> " + finalNumber);
 		return finalNumber;		
-		
+
 	} 
 
 

@@ -53,7 +53,13 @@ public class PFS_Scripts extends TestBase {
 	
 	@Test(dataProvider= "PFSTestData", groups = "Regression", enabled = true)
 	public void TC1_AddAccount(String paymentType, String appURL, String userName, String pass, String accountNumber, String editAccountNumber) throws Exception {
-		paymentType = paymentType;
+		 var_appURL 			= appURL;
+		 var_paymentType 		= paymentType;
+		 var_adminUserName 		= userName;
+		 var_adminPass 			= pass;
+		 var_accountNumber 	   	= accountNumber;
+		 var_editAccountNumber 	= editAccountNumber;
+				
 		initSession();
 		driver = TestBase.setDriver(browser, appURL);
 		LoginLogoutPageActions login = new LoginLogoutPageActions();
@@ -94,8 +100,6 @@ public class PFS_Scripts extends TestBase {
 	public void TC2_EditAccount() {
 		driver = TestBase.setDriver(browser, var_appURL);
 		LoginLogoutPageActions login = new LoginLogoutPageActions();
-		ExecutionLog.log(var_adminUserName + "adminUserName");
-		ExecutionLog.log(var_adminPass + "adminPass");
 		login.getLogin(var_adminUserName, var_adminPass);
 
 		ExecutionLog.log("****************************************");
