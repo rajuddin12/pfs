@@ -14,21 +14,27 @@ import com.pfs.utility.CommonMethods;
  */
 public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 
-	@FindBy(how = How.XPATH, using = "//select[@name='detailForm:pmtTypeDT_rppDD']") 		public WebElement rowSelectorForPaymentType;
+	/*@FindBy(how = How.XPATH, using = "//select[@name='detailForm:pmtTypeDT_rppDD']") 		public WebElement rowSelectorForPaymentType;
 	@FindBy(how = How.XPATH, using = "//div[contains(@class,'blockMsg')]") 		public WebElement spinner;
 	@FindBy(how = How.XPATH, using = "//span[contains(text(),'Next')]") 		public WebElement next;
 	@FindBy(how = How.XPATH, using = "//input[contains(@id,'acctNumber')]") 	public WebElement accountNumberField;
-	@FindBy(how = How.XPATH, using = "//span[contains(text(),'Done')]") 		public WebElement done;
+	@FindBy(how = How.XPATH, using = "//span[contains(text(),'Done')]") 		public WebElement done;*/
 
-	public String loc_paymentType = "//span[contains(text(),'@paymentType')]";
+	public static String loc_paymentType = "//span[contains(text(),'" + var_paymentType+ "')]";
 
-	public String loc_accountType = "//span[contains(text(),'" + var_paymentType  +"')]";
-	public String txt_account = "//td[contains(text(),'"+ var_accountNumber +"')]";
-	public String btn_next = "//span[contains(text(),'Next')]";
-	public String btn_save = "//span[contains(text(),'Save')]";
-	public String inp_account_num = "//input[@value='"+var_accountNumber+"']";
-	public String btn_done = "//span[contains(text(),'Done')]";
-	public String txt_edit_account = "//span[contains(text(),'"+var_editAccountNumber+"')]";
+	public static String loc_rowSelectorForPaymentType = "//select[@name='detailForm:pmtTypeDT_rppDD']";
+	public static String loc_spinner 			= "//div[contains(@class,'blockMsg')]";
+	public static String loc_next 				= "//span[contains(text(),'Next')]";
+	public static String loc_accountNumberField = "//input[contains(@id,'acctNumber')]";
+	public static String loc_done 				= "//span[contains(text(),'Done')]";	
+	
+	
+	public static String txt_account = "//td[contains(text(),'"+ var_accountNumber +"')]";
+	public static String btn_next = "//span[contains(text(),'Next')]";
+	public static String btn_save = "//span[contains(text(),'Save')]";
+	public static String inp_account_num = "//input[@value='"+var_accountNumber+"']";
+	public static String btn_done = "//span[contains(text(),'Done')]";
+	public static String txt_edit_account = "//span[contains(text(),'"+var_editAccountNumber+"')]";
 	
 	public AddEditAndRemovePaymentTypePageActions() {
 		ExecutionLog.log("==========| AddPaymentTypePage |==========");	

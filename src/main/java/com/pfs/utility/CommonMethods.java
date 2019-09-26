@@ -130,6 +130,12 @@ public class CommonMethods extends TestBase {
 		ExecutionLog.log("Verified that Radio Button " + elementName + " is Un-Checked ");
 	}
 
+	public static void selectValueFromDropDown(String locator, String dropdownValue, String elementName) {
+		Select select = new Select(getElement(locator));
+		select.selectByVisibleText(dropdownValue);
+		ExecutionLog.log("Selected '" + dropdownValue + "' in " + elementName);
+	}
+	
 	public static void selectValueFromDropDown(WebElement element, String dropdownValue, String elementName) {
 		Select select = new Select(element);
 		select.selectByVisibleText(dropdownValue);

@@ -1,8 +1,5 @@
 package com.pfs.pages;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 import com.pfs.reporting.ExecutionLog;
@@ -14,12 +11,13 @@ import com.pfs.utility.CommonMethods;
  */
 public class RegisteredPaymentsAndAccountsPageActions extends TestBase {
 
-	@FindBy(how = How.XPATH, using = "//button[@id='mainForm:addBt']//span[contains(text(),'Add payment type')]") 		public WebElement addPaymentType;
-	public String loc_accountNumber = "//td[contains(text(),'@paymentType')]/..//td/div[text()='@accountNumber']";
+	//@FindBy(how = How.XPATH, using = "//button[@id='mainForm:addBt']//span[contains(text(),'Add payment type')]") 		public WebElement addPaymentType;
+	public static String  loc_addPaymentType = "//button[@id='mainForm:addBt']//span[contains(text(),'Add payment type')]";
+	//public String loc_accountNumber = "//td[contains(text(),'@paymentType')]/..//td/div[text()='@accountNumber']";
 
-	//public String loc_accountNumber = "//td[contains(text(),'" + paymentType  +"')]/..//td/div[text()='" + accountNumber + "']";
-	public String radio_paymentType = "//td[text()='" + var_paymentType  +"']/../td/div[contains(@class,'radiobutton')]";
-	public String btn_edit = "//span[contains(text(),'Edit')]";
+	public static String loc_accountNumber = "//td[contains(text(),'" + var_paymentType  +"')]/..//td/div[text()='" + var_accountNumber + "']";
+	public static String radio_paymentType = "//td[text()='" + var_paymentType  +"']/../td/div[contains(@class,'radiobutton')]";
+	public static String btn_edit = "//span[contains(text(),'Edit')]";
 	
 	
 	public RegisteredPaymentsAndAccountsPageActions() {

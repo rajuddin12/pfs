@@ -16,8 +16,10 @@ import com.pfs.pages.RegisteredPaymentsAndAccountsPageActions;
 import com.pfs.reporting.ExecutionLog;
 import com.pfs.test.base.TestBase;
 import com.pfs.utility.CommonMethods;
+import static com.pfs.pages.RegisteredPaymentsAndAccountsPageActions.*;
+import static com.pfs.pages.AddEditAndRemovePaymentTypePageActions.*;
 
-public class PFS_Scripts extends TestBase {
+public class PFS_Scripts extends CommonMethods {
 
 	RegisteredPaymentsAndAccountsPageActions registeredPaymentsAndAccounts;
 
@@ -70,13 +72,32 @@ public class PFS_Scripts extends TestBase {
 		ExecutionLog.log("****************************************");
 
 		RegisteredPaymentsAndAccountsPageActions registeredPaymentsAndAccounts = new RegisteredPaymentsAndAccountsPageActions();
-		registeredPaymentsAndAccounts.addPaymentType.click();
+		clickOn(loc_addPaymentType, "addPaymentType");
 		Thread.sleep(5000);
+		CommonMethods.selectValueFromDropDown(loc_rowSelectorForPaymentType, "100", "rowSelectorForPaymentType");
+		Thread.sleep(10000);
+		clickOn(loc_paymentType, "paymentType " + var_paymentType);
+		Thread.sleep(10000);
+		clickOn(loc_next, "Next Button");
+		Thread.sleep(5000);
+		sendKeys(loc_accountNumberField, var_accountNumber, "Account Number");
+		Thread.sleep(5000);
+		clickOn(loc_next, "Next Button");
+		Thread.sleep(5000);
+		clickOn(loc_done, "Done Button");
+		Thread.sleep(20000);
+		CommonMethods.verifyTextOf(CommonMethods.getElement(registeredPaymentsAndAccounts.loc_accountNumber.replace("@paymentType", paymentType).replace("@accountNumber", accountNumber)), accountNumber, "Account Number");
+		ExecutionLog.log("Verified that account number '" + accountNumber + "' has been created successfully");
+		driver.close();
+		
+		/*registeredPaymentsAndAccounts.addPaymentType.click();
+		
 
 		AddEditAndRemovePaymentTypePageActions addPaymentTypePage = new AddEditAndRemovePaymentTypePageActions();			
 		CommonMethods.selectValueFromDropDown(addPaymentTypePage.rowSelectorForPaymentType, "100", "rowSelectorForPaymentType");
 		Thread.sleep(10000);
 		CommonMethods.getElement(addPaymentTypePage.loc_paymentType.replace("@paymentType", paymentType)).click();
+		
 		Thread.sleep(10000);
 		addPaymentTypePage.next.click();
 		Thread.sleep(5000);
@@ -91,7 +112,7 @@ public class PFS_Scripts extends TestBase {
 		
 		CommonMethods.verifyTextOf(CommonMethods.getElement(registeredPaymentsAndAccounts.loc_accountNumber.replace("@paymentType", paymentType).replace("@accountNumber", accountNumber)), accountNumber, "Account Number");
 		ExecutionLog.log("Verified that account number '" + accountNumber + "' has been created successfully");
-		driver.close();
+		driver.close();*/
 	}
 
 
