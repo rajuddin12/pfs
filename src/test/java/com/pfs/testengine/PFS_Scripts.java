@@ -1,10 +1,10 @@
-package com.care.testengine;
+package com.pfs.testengine;
 
 import org.testng.annotations.Test;
 
-import com.care.pages.RegisteredPaymentsAndAccountsPageActions;
-import com.care.pages.AddPaymentTypePageActions;
-import com.care.pages.LoginLogoutPageActions;
+import com.pfs.pages.AddPaymentTypePageActions;
+import com.pfs.pages.LoginLogoutPageActions;
+import com.pfs.pages.RegisteredPaymentsAndAccountsPageActions;
 import com.pfs.reporting.ExecutionLog;
 import com.pfs.test.base.TestBase;
 import com.pfs.utility.CommonMethods;

@@ -1,4 +1,4 @@
-package com.care.pages;
+package com.pfs.pages;
 
 import static com.pfs.utility.CommonMethods.*;
 
