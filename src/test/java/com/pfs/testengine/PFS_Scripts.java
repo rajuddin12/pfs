@@ -10,26 +10,16 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.pfs.excel.operations.ReadExcel;
-import com.pfs.pages.AddPaymentTypePageActions;
+import com.pfs.pages.AddEditAndRemovePaymentTypePageActions;
 import com.pfs.pages.LoginLogoutPageActions;
 import com.pfs.pages.RegisteredPaymentsAndAccountsPageActions;
 import com.pfs.reporting.ExecutionLog;
 import com.pfs.test.base.TestBase;
 import com.pfs.utility.CommonMethods;
 
-public class PFS_Scripts extends TestBase implements ITest  {
-	private ThreadLocal<String> testName = new ThreadLocal<>();
-	RegisteredPaymentsAndAccountsPageActions registeredPaymentsAndAccounts;
+public class PFS_Scripts extends TestBase {
 
-	  @BeforeMethod
-	   public void BeforeMethod(Method method, Object[] testData){
-	       testName.set(method.getName() + "_" + testData[0]);
-	   }
-	 
-	   @Override
-	   public String getTestName() {
-	       return testName.get();
-	   }
+	RegisteredPaymentsAndAccountsPageActions registeredPaymentsAndAccounts;
 
 	@DataProvider(name = "PFSTestData")
 	public Object[][] PFSTestData() throws Exception {
@@ -63,7 +53,8 @@ public class PFS_Scripts extends TestBase implements ITest  {
 	
 	@Test(dataProvider= "PFSTestData", groups = "Regression", enabled = true)
 	public void TC1_AddAccount(String paymentType, String appURL, String userName, String pass, String accountNumber, String editAccountNumber) throws Exception {
-		//initSession();
+		
+		initSession();
 		driver = TestBase.setDriver(browser, appURL);
 		LoginLogoutPageActions login = new LoginLogoutPageActions();
 		login.getLogin(userName, pass);
@@ -76,14 +67,14 @@ public class PFS_Scripts extends TestBase implements ITest  {
 		registeredPaymentsAndAccounts.addPaymentType.click();
 		Thread.sleep(5000);
 
-		AddPaymentTypePageActions addPaymentTypePage = new AddPaymentTypePageActions();			
+		AddEditAndRemovePaymentTypePageActions addPaymentTypePage = new AddEditAndRemovePaymentTypePageActions();			
 		CommonMethods.selectValueFromDropDown(addPaymentTypePage.rowSelectorForPaymentType, "100", "rowSelectorForPaymentType");
 		Thread.sleep(10000);
 		CommonMethods.getElement(addPaymentTypePage.loc_paymentType.replace("@paymentType", paymentType)).click();
 		Thread.sleep(10000);
 		addPaymentTypePage.next.click();
 		Thread.sleep(5000);
-		addPaymentTypePage = new AddPaymentTypePageActions();
+		addPaymentTypePage = new AddEditAndRemovePaymentTypePageActions();
 		addPaymentTypePage.accountNumberField.sendKeys(accountNumber);
 		Thread.sleep(5000);
 		addPaymentTypePage.next.click();
@@ -94,9 +85,29 @@ public class PFS_Scripts extends TestBase implements ITest  {
 		
 		CommonMethods.verifyTextOf(CommonMethods.getElement(registeredPaymentsAndAccounts.loc_accountNumber.replace("@paymentType", paymentType).replace("@accountNumber", accountNumber)), accountNumber, "Account Number");
 		ExecutionLog.log("Verified that account number '" + accountNumber + "' has been created successfully");
+		driver.close();
 	}
 
 
 
+	@Test(description="Edit Account", priority=2)
+	public void TC2_EditAccount() {
+		driver = TestBase.setDriver(browser, appURL);
+		LoginLogoutPageActions login = new LoginLogoutPageActions();
+		ExecutionLog.log(adminUserName + "adminUserName");
+		ExecutionLog.log(adminPass + "adminPass");
+		login.getLogin(adminUserName, adminPass);
 
+		ExecutionLog.log("****************************************");
+		ExecutionLog.log("*URL:	" + appURL);
+		
+		RegisteredPaymentsAndAccountsPageActions registeredPaymentsAndAccounts = new RegisteredPaymentsAndAccountsPageActions();
+		registeredPaymentsAndAccounts.selectPaymentType(paymentType);
+		registeredPaymentsAndAccounts.clickOnEditButton();
+		
+		AddEditAndRemovePaymentTypePageActions addPaymentTypePage = new AddEditAndRemovePaymentTypePageActions();			
+		addPaymentTypePage.EditAccountNumber();
+		addPaymentTypePage.clickOnDoneButton();
+		
+	}
 }
