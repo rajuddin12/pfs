@@ -18,7 +18,7 @@ public class AddPaymentTypePageActions extends TestBase {
 	@FindBy(how = How.XPATH, using = "//span[contains(text(),'Next')]") 		public WebElement next;
 	@FindBy(how = How.XPATH, using = "//input[contains(@id,'acctNumber')]") 	public WebElement accountNumberField;
 	@FindBy(how = How.XPATH, using = "//span[contains(text(),'Done')]") 		public WebElement done;
-	public String loc_accountType = "//span[contains(text(),'" + paymentType  +"')]";
+	public String loc_paymentType = "//span[contains(text(),'@paymentType')]";
 	
 	public AddPaymentTypePageActions() {
 		ExecutionLog.log("==========| AddPaymentTypePage |==========");	

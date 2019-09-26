@@ -10,6 +10,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.pfs.excel.operations.ReadExcel;
@@ -34,6 +35,7 @@ public class TestBase  {
 	public static String adminPass ;
 	public static String accountNumber ;
 	public static String editAccountNumber ;
+	public static String filePath;
 	
 	public static String browser = "chrome"; // Need to update in config.properties file
 	public static String path;
@@ -65,19 +67,23 @@ public class TestBase  {
 	// Initialize the credentials and URLs
 	public static void initSession(){
 		try {
-			String filePath = System.getProperty("user.dir") + File.separator + "\\PFSTestData.xlsx";
-			paymentType				= ReadExcel.getCellData(1, 0, "ActiveData_SingleUser", filePath);
-			appURL				= ReadExcel.getCellData(1, 1, "ActiveData_SingleUser", filePath);
-			adminUserName 		= ReadExcel.getCellData(1, 2, "ActiveData_SingleUser", filePath);
-			adminPass 			= ReadExcel.getCellData(1, 3, "ActiveData_SingleUser", filePath);
-			accountNumber 		= ReadExcel.getCellData(1, 4, "ActiveData_SingleUser", filePath);
-			editAccountNumber 		= ReadExcel.getCellData(1, 5, "ActiveData_SingleUser", filePath);			
+			
+			filePath = System.getProperty("user.dir") + File.separator + "\\PFSTestData.xlsx";
+			sheetName  = "ActiveData_SingleUser";
+			paymentType			= ReadExcel.getCellData(1, 0, sheetName, filePath);
+			appURL				= ReadExcel.getCellData(1, 1, sheetName, filePath);
+			adminUserName 		= ReadExcel.getCellData(1, 2, sheetName, filePath);
+			adminPass 			= ReadExcel.getCellData(1, 3, sheetName, filePath);
+			accountNumber 		= ReadExcel.getCellData(1, 4, sheetName, filePath);
+			editAccountNumber 	= ReadExcel.getCellData(1, 5, sheetName, filePath);			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	
+
 	/**
 	 * Launch browser along with application URL as defined in test data file
 	 * i.e. launch with default values

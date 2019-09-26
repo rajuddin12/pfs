@@ -14,7 +14,7 @@ import com.pfs.test.base.TestBase;
 public class RegisteredPaymentsAndAccountsPageActions extends TestBase {
 
 	@FindBy(how = How.XPATH, using = "//button[@id='mainForm:addBt']//span[contains(text(),'Add payment type')]") 		public WebElement addPaymentType;
-	public String loc_accountNumber = "//td[contains(text(),'" + paymentType  +"')]/..//td/div[text()='" + accountNumber + "']";
+	public String loc_accountNumber = "//td[contains(text(),'@paymentType')]/..//td/div[text()='@accountNumber']";
 
 
 	
