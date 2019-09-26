@@ -116,7 +116,7 @@
 				<configuration>
 					<suiteXmlFiles>
 						<!-- TestNG suite XML files -->
-						<suiteXmlFile>src\test\resources\com\pfs\suites\CareRegression.xml</suiteXmlFile>
+						<suiteXmlFile>src\test\resources\com\pfs\suites\PFS_Scenarios.xml</suiteXmlFile>
 						<!-- <suiteXmlFile>${suiteXmlFile}</suiteXmlFile> -->
 					</suiteXmlFiles>
 				</configuration>
