@@ -86,13 +86,13 @@ public class CommonMethods extends TestBase {
 		ExecutionLog.log("Clicked on the " + elementName);
 	}
 
-	public void clickOn(String locator, String webElementNameOfLocator) throws Exception {
+	public static void clickOn(String locator, String webElementNameOfLocator) throws Exception {
 
 		getElement(locator).click();
 		ExecutionLog.log("Clicked on the '" + webElementNameOfLocator + "'");
 	}
 
-	public void sendKeys(String locator, String TestData, String webElementNameOfLocator) throws Exception {
+	public static void sendKeys(String locator, String TestData, String webElementNameOfLocator) throws Exception {
 		getElement(locator).clear();
 		getElement(locator).sendKeys(TestData);
 		ExecutionLog.log("Entered \"" + TestData + "\" in field '" + webElementNameOfLocator + "'");

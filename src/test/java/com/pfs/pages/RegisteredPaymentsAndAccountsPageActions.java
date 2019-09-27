@@ -1,50 +1,23 @@
 package com.pfs.pages;
 
-import org.openqa.selenium.support.PageFactory;
-
-import com.pfs.reporting.ExecutionLog;
 import com.pfs.test.base.TestBase;
-import com.pfs.utility.CommonMethods;
 /**
  * This class contains all possible UI elements (and its actions) of RegisteredPaymentsAndAccounts Page
  *
  */
 public class RegisteredPaymentsAndAccountsPageActions extends TestBase {
 
-	//@FindBy(how = How.XPATH, using = "//button[@id='mainForm:addBt']//span[contains(text(),'Add payment type')]") 		public WebElement addPaymentType;
-	public static String  loc_addPaymentType = "//button[@id='mainForm:addBt']//span[contains(text(),'Add payment type')]";
-	//public String loc_accountNumber = "//td[contains(text(),'@paymentType')]/..//td/div[text()='@accountNumber']";
-
-	public static String loc_accountNumber = "//td[contains(text(),'" + var_paymentType  +"')]/..//td/div[text()='" + var_accountNumber + "']";
-	public static String radio_paymentType = "//td[text()='" + var_paymentType  +"']/../td/div[contains(@class,'radiobutton')]";
-	public static String btn_edit = "//span[contains(text(),'Edit')]";
+	public static String  loc_addPaymentType;
+	public static String loc_accountNumber ;
+	public static String radio_paymentType ;
+	public static String btn_edit;
 	
 	
 	public RegisteredPaymentsAndAccountsPageActions() {
-		ExecutionLog.log("==========| Registered Payments And Accounts Page |==========");	
-		PageFactory.initElements(driver, this);
-	}
-
-	/**
-	 * Select provided payment type at Registered Payments And Accounts
-	 * @param paymentType
-	 */
-	public void selectPaymentType(String paymentType) {
-		ExecutionLog.log("[INFO] Selecting payment type: " + paymentType);
-		CommonMethods.getElement(radio_paymentType).click();
+		loc_addPaymentType 	= "//button[@id='mainForm:addBt']//span[contains(text(),'Add payment type')]";
+		 loc_accountNumber 	= "//td[contains(text(),'" + var_paymentType  +"')]/..//td/div[text()='" + var_accountNumber + "']";
+		 radio_paymentType 	= "//td[text()='" + var_paymentType  +"']/../td/div[contains(@class,'radiobutton')]";
+		 btn_edit 			= "//span[contains(text(),'Edit')]";
 		
 	}
-	
-	/**
-	 * Click on Edit button
-	 */
-	public void clickOnEditButton() {
-		ExecutionLog.log("[INFO] Clicking on Edit button.");
-		CommonMethods.getElement(btn_edit).click();
-	
-	}
-	
-	
-	
-	
 }
