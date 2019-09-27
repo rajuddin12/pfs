@@ -46,23 +46,22 @@ public class PFS_Scripts extends CommonMethods {
 	}
 	
 	
-	@Test(dataProvider= "PFSTestData", groups = "Regression", enabled = true)
-	public void PFS_TestFunctionalities(String paymentType, String appURL, String userName, String pass, String accountNumber, String editAccountNumber) throws Exception {
+	@Test(dataProvider= "PFSTestData", groups = "Regression", enabled = true, description="PFS_TestFunctionalities")
+	public void PFS_TestFunctionalities( String paymentType, String appURL,  String userName,  String pass,  String accountNumber,  String editAccountNumber) throws Exception {
 		 var_appURL 			= appURL;
 		 var_paymentType 		= paymentType;
 		 var_adminUserName 		= userName;
 		 var_adminPass 			= pass;
 		 var_accountNumber 	   	= accountNumber;
 		 var_editAccountNumber 	= editAccountNumber;	
-		 
-		 
+		
 		 // Initialize Objects
 		 new AddEditAndRemovePaymentTypePageActions();
 		 new RegisteredPaymentsAndAccountsPageActions();
 		 try {
 			
 			 addAccount();
-			// editAccount();
+			 editAccount();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

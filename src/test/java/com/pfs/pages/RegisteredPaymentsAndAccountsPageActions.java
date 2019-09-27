@@ -14,10 +14,11 @@ public class RegisteredPaymentsAndAccountsPageActions extends TestBase {
 	
 	
 	public RegisteredPaymentsAndAccountsPageActions() {
+
 		loc_addPaymentType 	= "//button[@id='mainForm:addBt']//span[contains(text(),'Add payment type')]";
-		 loc_accountNumber 	= "//td[contains(text(),'" + var_paymentType  +"')]/..//td/div[text()='" + var_accountNumber + "']";
-		 radio_paymentType 	= "//td[text()='" + var_paymentType  +"']/../td/div[contains(@class,'radiobutton')]";
-		 btn_edit 			= "//span[contains(text(),'Edit')]";
-		
+		loc_accountNumber 	= "//td[contains(text(),'" + var_paymentType  +"')]/..//td/div[text()='" + var_accountNumber + "']";
+		radio_paymentType 	= "//td[contains(text(),'" + var_paymentType  +"')]/../td/div[contains(@class,'radiobutton')]";
+		btn_edit 			= "//span[contains(text(),'Edit')]";
+
 	}
 }

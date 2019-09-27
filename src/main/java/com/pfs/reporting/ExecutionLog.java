@@ -33,7 +33,7 @@ public class ExecutionLog {
 				ExtentTestManager.getTest().log(LogStatus.FAIL,color("red", text));
 			} else if(text.contains("ScreenShot") ) { 
 
-			} else {	
+			} else {
 				ExtentTestManager.getTest().log(LogStatus.INFO, text);
 			}
 			System.out.println(text);

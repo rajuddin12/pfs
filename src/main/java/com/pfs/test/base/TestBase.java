@@ -10,7 +10,6 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.pfs.excel.operations.ReadExcel;
@@ -35,6 +34,7 @@ public class TestBase  {
 	public static String var_adminPass ;
 	public static String var_accountNumber ;
 	public static String var_editAccountNumber ;
+	public static int pamentTyperow = 1;
 	
 	public static String filePath;
 	
@@ -45,11 +45,7 @@ public class TestBase  {
 	public static Boolean TestClassStatus; 	
 	public static Boolean TestCaseStatus;
 	public static ExtentReports report = new ExtentReports(currentDir + File.separator +"TestReport" + File.separator + "pfs-Automaton-Report_" + DateTimeHelper.getCurrentDateTime() + ".html");;
-	
-	public void navigateToScreen() {
-		ExecutionLog.log("Test Base Screen");
-		// Overwrite this method
-	}
+
 
 	public static WebDriver getDriver() {
 		return driver;
@@ -71,12 +67,12 @@ public class TestBase  {
 			
 			filePath = System.getProperty("user.dir") + File.separator + "\\PFSTestData.xlsx";
 			sheetName  = "ActiveData_SingleUser";
-			var_paymentType			= ReadExcel.getCellData(1, 0, sheetName, filePath);
+			/*var_paymentType			= ReadExcel.getCellData(1, 0, sheetName, filePath);
 			var_appURL				= ReadExcel.getCellData(1, 1, sheetName, filePath);
 			var_adminUserName 		= ReadExcel.getCellData(1, 2, sheetName, filePath);
 			var_adminPass 			= ReadExcel.getCellData(1, 3, sheetName, filePath);
 			var_accountNumber 		= ReadExcel.getCellData(1, 4, sheetName, filePath);
-			var_editAccountNumber 	= ReadExcel.getCellData(1, 5, sheetName, filePath);			
+			var_editAccountNumber 	= ReadExcel.getCellData(1, 5, sheetName, filePath);		*/	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -142,14 +138,17 @@ public class TestBase  {
 	}
 
 	@BeforeMethod(alwaysRun=true)
-	public void beforeEveryTest(Method method) {
+	public void beforeEveryTest(Method method) throws Exception {
 		Test test = method.getAnnotation(Test.class);
-		ExtentTestManager.startTest(test.description());		
+//		ExtentTestManager.startTest(test.description());
+		var_paymentType			= ReadExcel.getCellData(pamentTyperow, 0, sheetName, filePath);
+		ExtentTestManager.startTest(var_paymentType);
+		pamentTyperow++;
 	}
 		
 	@AfterMethod(alwaysRun=true)
 	protected void afterMethod(ITestResult result) throws Exception {		
-		LogStatus status = ExtentTestManager.getTest().getRunStatus();
+		//LogStatus status = ExtentTestManager.getTest().getRunStatus();
 		if (result.getStatus() == ITestResult.FAILURE) {
 			TestBase.TestClassStatus = false;
 			ReportScreenshot.captureAndDisplayScreenShots(driver);
@@ -167,4 +166,18 @@ public class TestBase  {
 		report.flush();
 	}
 
+	
+/*
+	@AfterMethod(alwaysRun=true)
+	protected void afterMethod(ITestResult result) throws Exception {
+		if (result.getStatus() == ITestResult.SKIP) {
+				ExtentTestManager.getTest().log(LogStatus.SKIP, "Test Case Skipped" + result.getThrowable());
+		} else {
+			ExtentTestManager.getTest().log(LogStatus.PASS, "Test Case Passed");
+		}
+
+		ExtentManager.getReporter().endTest(ExtentTestManager.getTest());        
+		ExtentManager.getReporter().flush();
+		report.flush();
+	}*/
 }
