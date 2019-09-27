@@ -92,7 +92,7 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		Thread.sleep(20000);
 		CommonMethods.verifyTextOf(CommonMethods.getElement(loc_accountNumber), var_accountNumber, "Account Number");
 		ExecutionLog.log("Verified that account number '" + var_accountNumber + "' has been created successfully");
-		ExecutionLog.log(ExecutionLog.color("blue", "============="));
+		ExecutionLog.log(ExecutionLog.color("blue", "===================================================="));
 		ExecutionLog.log("");
 		driver.close();
 
@@ -114,7 +114,7 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		Thread.sleep(5000);
 		editAccountNumber();
 		clickOn(btn_done, "Done Button");
-		ExecutionLog.log(ExecutionLog.color("blue", "============="));
+		ExecutionLog.log(ExecutionLog.color("blue", "===================================================="));
 		ExecutionLog.log("");
 		driver.close();
 		
