@@ -1,7 +1,13 @@
 package com.pfs.utility;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import org.testng.annotations.Test;
+
+import com.pfs.reporting.ExecutionLog;
 
 /*
 import com.datastax.driver.core.Cluster;
@@ -10,7 +16,54 @@ import com.datastax.driver.core.Session;
 import com.pfs.reporting.ExecutionLog;
 import com.pfs.test.base.TestBase;*/
 
-public class CareDBConnection {/*
+public class DBConnection {
+
+	String url = "jdbc:mysql://localhost:3308/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	String username = "apt";
+	String password = "7NfbD7AZVB5y9tww";
+	Connection conn;
+	Statement stmt ;
+
+
+
+	@Test
+	public void connectDB() throws SQLException {
+		System.out.println("Started executing Queries");
+		ExecutionLog.log("Started executing Queries");
+
+		try {
+			// Step 1: Allocate a database 'Connection' object
+			conn = DriverManager.getConnection(url, username, password);  
+			// Step 2: Allocate a 'Statement' object in the Connection
+			stmt = conn.createStatement();
+			
+			
+			
+			
+			// Step 3: Execute a SQL SELECT query, the query result
+			//  is returned in a 'ResultSet' object.
+			/*String strSelect = "desc security.user_payment_type";
+			System.out.println("The SQL query is: " + strSelect);
+			ResultSet rs=stmt.executeQuery(strSelect);  
+			while(rs.next())  
+				System.out.println(rs.getString(1));  
+*/
+			//disconnectDB();
+		} catch(Exception e) {
+			e.printStackTrace();
+			//disconnectDB();
+		}
+
+	}
+
+	public void disconnectDB() throws SQLException {
+		conn.close(); 
+	}
+
+	
+	
+	
+	/*
 
 	static String serverIp = "96.116.161.129";//"10.5.3.133";
 	static String keyspace = "care_dev";
