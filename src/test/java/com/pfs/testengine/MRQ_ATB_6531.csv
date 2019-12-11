@@ -1,0 +1,4 @@
+paiment_id,acct_nbr,userid_nbr,payment_type_code,amt_12,conference_nbr,creditdebit_indx,debit_fi_acct_nbr,debit_fi_branch_nbr,debit_fi_nbr,filing_userid,mbr_fi_nbr,payment_on_acct,recipient_id,revenue_expense_transit_nbr,status_cd
+300000,'12312312310002',1980026,300,1111.22,123,D,1234567,12345,19,1980026,19,Y,300,0,A
+300001,'23232323232323',1980026,301,222.22,345,D,1234567,12345,19,1980026,19,Y,300,0,A
+
