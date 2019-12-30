@@ -12,7 +12,7 @@ public class UpdateCSVFile {
 	static String[] data;
 	static long payment_id = 350000;
 	static int rowNo=0;		// Temporary variable to write 0.00(1st row) and 999999.99(2nd row) into the amt_12 field.
-	static String fileName="TestCSVFile.csv";
+	static String fileName="BMO.csv";
 	
 	public static String handleDecimalTwoPoints(String number) {
 		

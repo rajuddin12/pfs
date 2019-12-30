@@ -26,17 +26,19 @@ public class ExecutionLog {
 	public static void logging(String text) {
 	try {
 			if(text.contains("Verified")) {  
+				System.out.println(text);
 				ExtentTestManager.getTest().log(LogStatus.PASS,  text);
 			} else if(text.contains("BUG") || text.contains("Failed")) {
 				TestBase.TestCaseStatus = false;
-				text = "[FAIL]  "+ text;		
+				text = "[FAIL]  "+ text;
+				System.out.println(text);
 				ExtentTestManager.getTest().log(LogStatus.FAIL,color("red", text));
 			} else if(text.contains("ScreenShot") ) { 
 
 			} else {
-				ExtentTestManager.getTest().log(LogStatus.INFO, text);
+				System.out.println(text);
+				//ExtentTestManager.getTest().log(LogStatus.INFO, text);
 			}
-			System.out.println(text);
 		} catch (Exception e) { 
 			System.err.println("ERROR: " + e.getMessage()); 
 		}

@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 import com.pfs.excel.operations.ReadExcel;
 import com.pfs.pages.AddEditAndRemovePaymentTypePageActions;
 import com.pfs.pages.RegisteredPaymentsAndAccountsPageActions;
-import com.pfs.reporting.ExecutionLog;
 import com.pfs.utility.CommonMethods;
 import static com.pfs.pages.AddEditAndRemovePaymentTypePageActions.*;
 

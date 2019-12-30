@@ -39,8 +39,7 @@ public class AWS {
          *  credentialsProvider = new ProfileCredentialsProvider("your-profile")
          */
 
-        ProfileCredentialsProvider credentialsProvider =
-                new ProfileCredentialsProvider();
+        ProfileCredentialsProvider credentialsProvider =  new ProfileCredentialsProvider();
         try {
             credentialsProvider.getCredentials();
         } catch (Exception e) {

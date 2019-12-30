@@ -9,7 +9,9 @@
 	</listeners> -->
 	<test name="Federal - Softwood Lumber Products Export Chrg -- SLPEX">
 		<classes>
-			<class name="com.pfs.testengine.PFS_Scripts" />
+			<!-- <class name="com.pfs.testengine.PFS_Scripts" /> -->
+			<class name="com.pfs.testengine.testHelp" />
+		<!-- 	<class name="com.pfs.utility.DBConnection" /> -->
 		</classes>
 	</test>
 </suite>
