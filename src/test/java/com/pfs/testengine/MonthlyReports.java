@@ -12,6 +12,7 @@ public class MonthlyReports {
 
 	ArrayList<String> CSVData = new  ArrayList<String> ();
 	BufferedReader csvReader = null;
+	String fileName = "6_40_2_8_bns_queries_per_payment_type.csv";
 
 	String paiment_id;
 	String acct_nbr;
@@ -22,8 +23,8 @@ public class MonthlyReports {
 	String creditdebit_indx;
 
 	@Test
-	public void testing() throws Exception {
-		insertCSVDataInDB("6_40_1_2_bmo_cancel.csv");
+	public void insertData() throws Exception {
+		insertCSVDataInDB(fileName);
 	}
 
 	public String createInsertionQuery(String tableName, String columnNames, String Values){		
@@ -37,15 +38,15 @@ public class MonthlyReports {
 	
 	
 	private String getValues_MonthlyReport() {
-		String var_TransDate 			 ="20191223";
+		String var_TransDate 			 ="20200105";
 		String var_TransTime 			 ="9464348";
-		String var_PaymentDate 			 ="20191223";
-		String var_FillingDate  		 ="20191223";
-		String var_ReportThruDate  		 = "20191223";
-		String var_fi_settlement_date 	 = "20191223";
+		String var_PaymentDate 			 ="20200105";
+		String var_FillingDate  		 ="20200105";
+		String var_ReportThruDate  		 = "20200105";
+		String var_fi_settlement_date 	 = "20200105";
 		String var_recipient_settlement_date = "0";
-		String var_CreatedDateWithTime = "2019-12-17 10:00:00";
-		String var_UpdatedDateWithTime = "2019-12-17 10:00:00";
+		String var_CreatedDateWithTime = "2020-01-01 10:00:00";
+		String var_UpdatedDateWithTime = "2020-01-01 10:00:00";
 		
 		return CSVData.get(0)+"," +CSVData.get(1) +"," +CSVData.get(2)  + "," +CSVData.get(3) + "," + var_TransDate + "," + var_TransTime+ "," +CSVData.get(15)+ "," + var_PaymentDate + "," +CSVData.get(4)+ ",0,0,0,0,0,0,0,0,0,0" +  "," +CSVData.get(4) +",0,0," + CSVData.get(5)+ "," +CSVData.get(6)+"," + CSVData.get(7) +"," + CSVData.get(8)+"," + CSVData.get(9)+ "," + var_FillingDate +"," + CSVData.get(10)+",'W' "+ "," + CSVData.get(11) + ",'G_N'" +"," + CSVData.get(12)  +"," + CSVData.get(13) +"," + CSVData.get(14)+ ","+ var_ReportThruDate+ ","+ var_fi_settlement_date+","+ var_recipient_settlement_date+",0,'N','Askida','Askida','QA1', '"+var_CreatedDateWithTime+"' ,'QA1','"+var_UpdatedDateWithTime+"'";
 
@@ -55,9 +56,11 @@ public class MonthlyReports {
 		csvReader = new BufferedReader(new FileReader(fileName));
 		String row;
 		while ((row = csvReader.readLine()) != null) {
-			for(int i =0; i<row.split(",").length; i++) {
-				CSVData.add(row.split(",")[i]);
-			}
+			if(!row.split(",")[0].contains("id")) {
+				for(int i =0; i<row.split(",").length; i++) {
+					CSVData.add(row.split(",")[i]);
+					}
+				}
 			System.out.println(createInsertionQuery("paytax.payment", getColumnNames_MonthlyReport(), getValues_MonthlyReport()));
 			DBConnection.executeInsertDeleteQuery(createInsertionQuery("paytax.payment", getColumnNames_MonthlyReport(), getValues_MonthlyReport()));
 
