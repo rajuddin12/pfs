@@ -12,7 +12,7 @@ public class UpdateCSVFile {
 	static String[] data;
 	static long payment_id = 350000;
 	static int rowNo=0;		// Temporary variable to write 0.00(1st row) and 999999.99(2nd row) into the amt_12 field.
-	static String fileName="BMO.csv";
+	static String fileName="Test.csv";
 	
 	public static String handleDecimalTwoPoints(String number) {
 		
@@ -86,6 +86,7 @@ public class UpdateCSVFile {
 				  continue;
 		    }
 		    
+//		    bw.write(addSemiColunToAlldata());
 		    bw.write(updateRow(data));
 		    bw.write("\n");
 		    
@@ -95,5 +96,21 @@ public class UpdateCSVFile {
 		System.out.println("Success!!");
 	}
 	
-	
+	/*Add the Semicolun to the all data of the respective row
+	 * return the complete row as String so that it can used to write in csv file
+	 * 
+	 */
+	public static String addSemiColunToAlldata() {
+		String fStr="";
+		
+		for(int i =0; i<data.length; i++) {
+			if(data[i].contains("'")) {
+				data[i]= data[i].replace("'", "");
+				data[i] = "'" + data[i]+ "'";// Add Semicoluns
+			}
+			
+			fStr+=data[i]+",";	    // Covert data into string from Array
+		}
+		return fStr;
+	}	
 }
