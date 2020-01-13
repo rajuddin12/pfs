@@ -23,7 +23,7 @@ public class MonthlyReports {
 	String creditdebit_indx;
 
 	@Test
-	public void insertData() throws Exception {
+	public void insertData() throws Exception {;
 		insertCSVDataInDB(fileName);
 	}
 
@@ -60,14 +60,13 @@ public class MonthlyReports {
 			if(!row.split(",")[0].contains("id")) {
 				for(int i =0; i<row.split(",").length; i++) {
 					CSVData.add(row.split(",")[i]);
-					}
 				}
-			//System.out.println(createInsertionQuery("paytax.payment", getColumnNames_MonthlyReport(), getValues_MonthlyReport()));
 			DBConnection.executeInsertDeleteQuery(createInsertionQuery("paytax.payment", getColumnNames_MonthlyReport(), getValues_MonthlyReport()));
 
 			CSVData.clear();
 			csvReader.close();
-		}	
+	    	}
+    	 }	
 	}
 	
 }
