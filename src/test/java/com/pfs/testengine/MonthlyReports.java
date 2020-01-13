@@ -12,7 +12,7 @@ public class MonthlyReports {
 
 	ArrayList<String> CSVData = new  ArrayList<String> ();
 	BufferedReader csvReader = null;
-	String fileName = "6_40_2_8_bns_queries_per_payment_type.csv";
+	String fileName = "6_40_1_6_bmo_dlc_freetrial_tax_payments_processed.csv";
 
 	String paiment_id;
 	String acct_nbr;
@@ -23,7 +23,7 @@ public class MonthlyReports {
 	String creditdebit_indx;
 
 	@Test
-	public void insertData() throws Exception {
+	public void insertData() throws Exception {;
 		insertCSVDataInDB(fileName);
 	}
 
@@ -59,12 +59,12 @@ public class MonthlyReports {
 			if(!row.split(",")[0].contains("id")) {
 				for(int i =0; i<row.split(",").length; i++) {
 					CSVData.add(row.split(",")[i]);
-					}
 				}
-			System.out.println(createInsertionQuery("paytax.payment", getColumnNames_MonthlyReport(), getValues_MonthlyReport()));
-			DBConnection.executeInsertDeleteQuery(createInsertionQuery("paytax.payment", getColumnNames_MonthlyReport(), getValues_MonthlyReport()));
+				//System.out.println(createInsertionQuery("paytax.payment", getColumnNames_MonthlyReport(), getValues_MonthlyReport()));
+				DBConnection.executeInsertDeleteQuery(createInsertionQuery("paytax.payment", getColumnNames_MonthlyReport(), getValues_MonthlyReport()));
 
-			CSVData.clear();
+				CSVData.clear();
+			}
 		}	
 	}
 	

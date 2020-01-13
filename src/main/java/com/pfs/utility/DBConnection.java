@@ -32,7 +32,7 @@ public class DBConnection {
 			conn = DriverManager.getConnection(url, username, password);  
 			// Step 2: Allocate a 'Statement' object in the Connection
 			stmt = conn.createStatement();		
-			ExecutionLog.log("============Connected with DataBase.============");
+			//ExecutionLog.log("============Connected with DataBase.============");
 		} catch(Exception e) {
 			System.err.println("============Could not Connect Execute the query due to Exception.============");
 			e.printStackTrace();
@@ -50,7 +50,6 @@ public class DBConnection {
 	 */
 	public static void executeInsertDeleteQuery(String query) throws SQLException {
 		connectDB() ;
-		ExecutionLog.log("Started Updating the data in DataBase");
 		try {		
 			ExecutionLog.log("The SQL query is: " + query);
 			stmt.executeUpdate(query);  
@@ -98,7 +97,7 @@ public class DBConnection {
 
 	
 	public static void disconnectDB() throws SQLException {
-		System.out.println("============Disconnecting the DB============");
+		//System.out.println("============Disconnecting the DB============");
 		conn.close(); 
 	}
 
