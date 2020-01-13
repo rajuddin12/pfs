@@ -49,7 +49,7 @@ public class UpdateCSVFile {
 			}
 
 			bw.write(addSemiColunToAlldata());
-			//		    bw.write(updateRow(data));
+			bw.write(updateRow(data));
 			bw.write("\n");
 
 		}
@@ -83,7 +83,7 @@ public class UpdateCSVFile {
 				}
 
 				bw.write(addSemiColunToAlldata());
-				//		    bw.write(updateRow(data));
+				bw.write(updateRow(data));
 				bw.write("\n");
 
 			}
