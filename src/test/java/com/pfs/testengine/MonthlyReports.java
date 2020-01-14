@@ -64,9 +64,9 @@ public class MonthlyReports {
 			DBConnection.executeInsertDeleteQuery(createInsertionQuery("paytax.payment", getColumnNames_MonthlyReport(), getValues_MonthlyReport()));
 
 			CSVData.clear();
-			csvReader.close();
 	    	}
     	 }	
+		csvReader.close();
 	}
 	
 }
