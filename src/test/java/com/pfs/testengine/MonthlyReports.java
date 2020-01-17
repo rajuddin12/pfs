@@ -12,7 +12,7 @@ public class MonthlyReports {
 
 	ArrayList<String> CSVData = new  ArrayList<String> ();
 	BufferedReader csvReader = null;
-	String fileName = "6_40_1_6_bmo_dlc_freetrial_tax_payments_processed.csv";
+	String fileName = "6_40_2_4_bns_trans_processed.csv";
 
 	String paiment_id;
 	String acct_nbr;
@@ -42,8 +42,8 @@ public class MonthlyReports {
 		String var_TransTime 			 ="9464348";
 		String var_PaymentDate 			 ="20200105";
 		String var_FillingDate  		 ="20200105";
-		String var_ReportThruDate  		 = "20200105";
-		String var_fi_settlement_date 	 = "20200105";
+		String var_ReportThruDate  		 ="20200105";
+		String var_fi_settlement_date 	 ="20200105";
 		String var_recipient_settlement_date = "0";
 		String var_CreatedDateWithTime = "2020-01-01 10:00:00";
 		String var_UpdatedDateWithTime = "2020-01-01 10:00:00";
@@ -56,16 +56,17 @@ public class MonthlyReports {
 		csvReader = new BufferedReader(new FileReader(fileName));
 		String row;
 		while ((row = csvReader.readLine()) != null) {
+			
 			if(!row.split(",")[0].contains("id")) {
 				for(int i =0; i<row.split(",").length; i++) {
 					CSVData.add(row.split(",")[i]);
 				}
-				//System.out.println(createInsertionQuery("paytax.payment", getColumnNames_MonthlyReport(), getValues_MonthlyReport()));
-				DBConnection.executeInsertDeleteQuery(createInsertionQuery("paytax.payment", getColumnNames_MonthlyReport(), getValues_MonthlyReport()));
+			DBConnection.executeInsertDeleteQuery(createInsertionQuery("paytax.payment", getColumnNames_MonthlyReport(), getValues_MonthlyReport()));
 
-				CSVData.clear();
-			}
-		}	
+			CSVData.clear();
+	    	}
+    	 }	
+		csvReader.close();
 	}
 	
 }
