@@ -17,12 +17,13 @@ public class UpdateCSVFile {
 	static String[] data;
 	static long   payment_id = 350000;
 	static int    rowNo		 = 0;		// Temporary variable to write 0.00(1st row) and 999999.99(2nd row) into the amt_12 field.
-
+    static int numberOfRowsInFile;
+	
 	/**
 	 * To update the specific CSV file
 	 * Run the method "updateSigleCSV_File()"
 	 */
-	static String fileName   = "6_40_1_6_bmo_dlc_freetrial_tax_payments_processed.csv";
+	static String fileName   = "Extracted_data-TD Bank.csv";
 
 	/**
 	 * To update the all CSV files of the specific folder
@@ -32,15 +33,20 @@ public class UpdateCSVFile {
 
 	static List<String> allCSVFiles = new ArrayList<String>();
 
-	@Test
+	@Test(enabled = true)
 	public static void updateSigleCSV_File() throws Exception {
 		BufferedReader csvReader = null;
 		csvReader = new BufferedReader(new FileReader(fileName));
+		numberOfRowsInFile = getNumberOfRows(csvReader);
+		csvReader.close();
+		csvReader = new BufferedReader(new FileReader(fileName));
+		System.out.println("Number of Rows in file: " + numberOfRowsInFile);
 		File f = new File("Updated_"+fileName);
 		FileWriter fw = new FileWriter(f);
 		BufferedWriter bw = new BufferedWriter(fw);
 		String row;
 		while ((row = csvReader.readLine()) != null) {
+			rowNo++;
 			data = row.split(",");
 			if(data[0].contains("id")) {
 				bw.write("paiment_id,acct_nbr,userid_nbr,payment_type_code,amt_12,conference_nbr,creditdebit_indx,debit_fi_acct_nbr,debit_fi_branch_nbr,debit_fi_nbr,filing_userid,mbr_fi_nbr,payment_on_acct,recipient_id,revenue_expense_transit_nbr,status_cd");
@@ -48,8 +54,8 @@ public class UpdateCSVFile {
 				continue;
 			}
 
-			bw.write(addSemiColunToAlldata());
 			bw.write(updateRow(data));
+			//bw.write(addSemiColunToAlldata());
 			bw.write("\n");
 
 		}
@@ -58,7 +64,7 @@ public class UpdateCSVFile {
 		System.out.println("Success!!");
 	}
 
-	@Test
+	@Test(enabled = false)
 	public static void updateAllCSVFiles_Under_Folder() throws Exception {
 		BufferedReader csvReader = null;
 
@@ -75,6 +81,7 @@ public class UpdateCSVFile {
 			BufferedWriter bw = new BufferedWriter(fw);
 			String row;
 			while ((row = csvReader.readLine()) != null) {
+				rowNo++;
 				data = row.split(",");
 				if(data[0].contains("id")) {
 					bw.write("paiment_id,acct_nbr,userid_nbr,payment_type_code,amt_12,conference_nbr,creditdebit_indx,debit_fi_acct_nbr,debit_fi_branch_nbr,debit_fi_nbr,filing_userid,mbr_fi_nbr,payment_on_acct,recipient_id,revenue_expense_transit_nbr,status_cd");
@@ -83,8 +90,8 @@ public class UpdateCSVFile {
 				}
 
 				//bw.write(addSemiColunToAlldata());
-				//bw.write(updateRow(data));
-				bw.write(removeextraSingleQuotes(data));
+				bw.write(updateRow(data));
+				//bw.write(removeextraSingleQuotes(data));
 				bw.write("\n");
 
 			}
@@ -97,8 +104,7 @@ public class UpdateCSVFile {
 	static String updateRow(String str[]) {
 		String pattern = "######.##";
 		DecimalFormat decimalFormat = new DecimalFormat(pattern);
-
-		String fStr="";
+        String fStr="";
 		for(int i=0;i<str.length;i++) {
 			if(i==0) {
 
@@ -109,12 +115,10 @@ public class UpdateCSVFile {
 				fStr+="'"+str[1]+"',"; continue;
 
 			}if(i==4) {						
-				if(rowNo==0) {
+				if(rowNo==1) {
 					fStr+="'0.00',";
-					rowNo++;   //  rowNo = 1 
-				} else if(rowNo==1) {
+				} else if(rowNo==2) {
 					fStr+="'99999999.99',";
-					rowNo++;  //rowNo = 2 
 				} else fStr+="'" +handleDecimalTwoPoints(decimalFormat.format((Math.random()*((99999999.99-0.00)+1))+0.00))+"',";
 
 				continue;
@@ -129,7 +133,9 @@ public class UpdateCSVFile {
 			}
 			if(i==str.length-1) {
 
-				fStr+=str[i];  continue;
+				fStr+=str[i]+","+getTimeToAdd(numberOfRowsInFile, rowNo);  
+				
+				continue;
 
 			}
 
@@ -164,7 +170,7 @@ public class UpdateCSVFile {
 				data[i] = "'" + data[i]+ "'";// Add Semicoluns
 			}
 
-			fStr+=data[i]+",";	    // Covert data into string from Array
+			fStr+=data[i]+",";	    // Convert data into string from Array
 		}
 		return fStr;
 	}	
@@ -217,5 +223,37 @@ public class UpdateCSVFile {
 		}
 
 		return allCSVFiles;
+	}
+	
+	/**
+	 * Count number of rows present in file excluding the header row
+	 * @param br
+	 * @return
+	 */
+	static int getNumberOfRows(BufferedReader br) throws Exception{
+		int numOfRows = 0;
+		String row = "";
+		while ((row = br.readLine()) != null) {
+			if(row.contains("id"))
+				continue;
+		    numOfRows++;
+		}
+		return numOfRows;
+	}
+	
+	static String getTimeToAdd(int totalNumOfRow, int currentRow) {
+		String time = "";
+		int temp = totalNumOfRow/4;
+		
+		if(currentRow <= temp)
+			time = "0:00:00";
+		else if (currentRow <= temp*2)
+			time = "11:59:59";
+		else if (currentRow <= temp*3)
+			time = "12:00:00";
+		else
+			time = "23:59:59";
+		return time;
+		
 	}
 }
