@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class UpdateCSVFile {
 	 * To update the specific CSV file
 	 * Run the method "updateSigleCSV_File()"
 	 */
-	static String fileName   = "6_40_1_6_bmo_dlc_freetrial_tax_payments_processed.csv";
+	static String fileName   = "6_40_3_1_rbc_no_activity_users_1.csv";
 
 	/**
 	 * To update the all CSV files of the specific folder
@@ -30,8 +31,10 @@ public class UpdateCSVFile {
 	 */
 	static String folderName = "RBC";
 
-	static List<String> allCSVFiles = new ArrayList<String>();
-
+	static List<String> allCSVFiles 		= new ArrayList<String>();
+	static List<String> payment_amount_key 		= new ArrayList<String>();
+	static Hashtable<String, String>  payment_amount_hashtable = new Hashtable<>();
+	
 	@Test
 	public static void updateSigleCSV_File() throws Exception {
 		BufferedReader csvReader = null;
@@ -48,8 +51,8 @@ public class UpdateCSVFile {
 				continue;
 			}
 
-			bw.write(addSemiColunToAlldata());
-			bw.write(updateRow(data));
+//			bw.write(updateRow(data));
+			bw.write(removeextraSingleQuotes(data));
 			bw.write("\n");
 
 		}
@@ -108,15 +111,29 @@ public class UpdateCSVFile {
 
 				fStr+="'"+str[1]+"',"; continue;
 
-			}if(i==4) {						
+			} 
+			if(i==4) {				
 				if(rowNo==0) {
 					fStr+="'0.00',";
+					payment_amount_hashtable.put(str[3], "0.00");
 					rowNo++;   //  rowNo = 1 
 				} else if(rowNo==1) {
-					fStr+="'99999999.99',";
+					
+					fStr+="'9999.99',";
+					payment_amount_hashtable.put(str[3], "9999.99");
 					rowNo++;  //rowNo = 2 
-				} else fStr+="'" +handleDecimalTwoPoints(decimalFormat.format((Math.random()*((99999999.99-0.00)+1))+0.00))+"',";
+				} else //fStr+="'" +handleDecimalTwoPoints(decimalFormat.format((Math.random()*((99999999.99-0.00)+1))+0.00))+"',";
 
+				// set the value of respective key in the hashtable
+				if(!payment_amount_hashtable.containsKey(str[3])) {
+					str[4] = handleDecimalTwoPoints(decimalFormat.format((Math.random()*((9999.99-0.00)+1))+0.00));
+					payment_amount_hashtable.put(str[3], str[4]);					
+					fStr+= payment_amount_hashtable.get(str[3])+",";
+				}  else {
+						fStr+= payment_amount_hashtable.get(str[3])+",";
+				}
+				System.out.println(payment_amount_hashtable.get(str[3]));
+								
 				continue;
 
 			}if(i==5) {
@@ -171,8 +188,8 @@ public class UpdateCSVFile {
 
 	public static String removeextraSingleQuotes(String str[]) {
 		String fStr="";
-		String pattern = "######.##";
-		DecimalFormat decimalFormat = new DecimalFormat(pattern);
+		//String pattern = "######.##";
+		//DecimalFormat decimalFormat = new DecimalFormat(pattern);
 
 		List<Integer> integerColumns = new ArrayList<Integer>();
 		integerColumns.add(0);   	// 	paiment_id
@@ -180,7 +197,6 @@ public class UpdateCSVFile {
 		integerColumns.add(3);   	//	payment_type_code
 		integerColumns.add(4);   	//	amt_12
 		integerColumns.add(5);  	// 	Confirmation Number
-		integerColumns.add(6); 		//	creditdebit_indx
 		integerColumns.add(8);  	//	debit_fi_branch_nbr
 		integerColumns.add(9);  	//	debit_fi_nbr
 		integerColumns.add(10); 	// 	filing_userid
@@ -190,21 +206,31 @@ public class UpdateCSVFile {
 
 		for(int i=0;i<str.length;i++) {
 
-			if(integerColumns.add(i)) {
-				data[i]= data[i].replace("'", "");// remove Semicolons
-			} if(i==4) {						
-				if(rowNo==0) {
-					fStr+="'0.00',";
-					rowNo++;   //  rowNo = 1 
-				} else if(rowNo==1) {
-					fStr+="'99999999.99',";
-					rowNo++;  //rowNo = 2 
-				} else fStr+="'" +handleDecimalTwoPoints(decimalFormat.format((Math.random()*((9999.99-0.00)+1))+0.00))+"',";
+			if(integerColumns.contains(i)) {
+				str[i]= str[i].replace("'", "");// remove Single Quotes
+			} else {
+				str[i]= str[i].replace("'", "");
+				str[i] = "'" + str[i]+ "'";// Add Single Quote
 			}
 			fStr+=str[i]+",";	
 		}
 		return fStr;
 	}
+	
+	/*public static String enterAmount12_RepsetiveToPaymentTypeCode(String str[]) {
+		String fStr="";
+		
+		
+		
+		for(int i=0;i<str.length;i++) {			
+			if(payment_amount.contains(payment_amount_listkey.get(0))) {
+				
+			}
+			fStr+=str[i]+",";
+		}
+		return fStr;
+	}
+	*/
 	public static List<String> listFilesForFolder(final File folder) {
 
 		for (final File fileEntry : folder.listFiles()) {
@@ -215,7 +241,6 @@ public class UpdateCSVFile {
 				System.out.println(fileEntry.getName());
 			}
 		}
-
 		return allCSVFiles;
 	}
 }
