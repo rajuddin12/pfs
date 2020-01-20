@@ -22,13 +22,13 @@ public class UpdateCSVFile {
 	 * To update the specific CSV file
 	 * Run the method "updateSigleCSV_File()"
 	 */
-	static String fileName   = "6_40_1_2_bmo_cancel - 2_BMO_CANCEL.csv";
+	static String fileName   = "6_40_1_6_bmo_dlc_freetrial_tax_payments_processed.csv";
 
 	/**
 	 * To update the all CSV files of the specific folder
 	 * Run the method "updateAllCSVFiles_Under_Folder()"
 	 */
-	static String folderName = "BNS";
+	static String folderName = "RBC";
 
 	static List<String> allCSVFiles = new ArrayList<String>();
 
@@ -62,7 +62,7 @@ public class UpdateCSVFile {
 	public static void updateAllCSVFiles_Under_Folder() throws Exception {
 		BufferedReader csvReader = null;
 
-		//Read all CSV file pplaced under current Directory
+		//Read all CSV file placed under current Directory
 		File folder = new File(System.getProperty("user.dir")+ File.separator + folderName);
 		listFilesForFolder(folder);
 		Iterator<String> iter = allCSVFiles.iterator();
@@ -82,8 +82,9 @@ public class UpdateCSVFile {
 					continue;
 				}
 
-				bw.write(addSemiColunToAlldata());
-				bw.write(updateRow(data));
+				//bw.write(addSemiColunToAlldata());
+				//bw.write(updateRow(data));
+				bw.write(removeextraSingleQuotes(data));
 				bw.write("\n");
 
 			}
@@ -168,6 +169,42 @@ public class UpdateCSVFile {
 		return fStr;
 	}	
 
+	public static String removeextraSingleQuotes(String str[]) {
+		String fStr="";
+		String pattern = "######.##";
+		DecimalFormat decimalFormat = new DecimalFormat(pattern);
+
+		List<Integer> integerColumns = new ArrayList<Integer>();
+		integerColumns.add(0);   	// 	paiment_id
+		integerColumns.add(2);   	// 	userid_nbr
+		integerColumns.add(3);   	//	payment_type_code
+		integerColumns.add(4);   	//	amt_12
+		integerColumns.add(5);  	// 	Confirmation Number
+		integerColumns.add(6); 		//	creditdebit_indx
+		integerColumns.add(8);  	//	debit_fi_branch_nbr
+		integerColumns.add(9);  	//	debit_fi_nbr
+		integerColumns.add(10); 	// 	filing_userid
+		integerColumns.add(11); 	//	mbr_fi_nbr
+		integerColumns.add(13);    	//	recipient_id
+		integerColumns.add(14);	  	// 	revenue_expense_transit_nbr
+
+		for(int i=0;i<str.length;i++) {
+
+			if(integerColumns.add(i)) {
+				data[i]= data[i].replace("'", "");// remove Semicolons
+			} if(i==4) {						
+				if(rowNo==0) {
+					fStr+="'0.00',";
+					rowNo++;   //  rowNo = 1 
+				} else if(rowNo==1) {
+					fStr+="'99999999.99',";
+					rowNo++;  //rowNo = 2 
+				} else fStr+="'" +handleDecimalTwoPoints(decimalFormat.format((Math.random()*((9999.99-0.00)+1))+0.00))+"',";
+			}
+			fStr+=str[i]+",";	
+		}
+		return fStr;
+	}
 	public static List<String> listFilesForFolder(final File folder) {
 
 		for (final File fileEntry : folder.listFiles()) {
