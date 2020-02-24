@@ -18,7 +18,7 @@ public class UpdateCSVFile {
 
 	static String[] data;
 	static long   payment_id = 350000;
-	static long   temp_payment_id = 350000;
+	static long   temp_payment_id =350000;
 	static int    rowNo		 = 0;		// Temporary variable to write 0.00(1st row) and 999999.99(2nd row) into the amt_12 field.
     static int numberOfRowsInFile;
 	
@@ -26,13 +26,13 @@ public class UpdateCSVFile {
 	 * To update the specific CSV file
 	 * Run the method "updateSigleCSV_File()"
 	 */
-	static String fileName   = "6_40_2_3_bns_cancel - Updated_Extracted_data-BNS Bank.csv";
+	static String fileName   = "6_40_82_1_des_no_activity_users_1.csv";
 
 	/**
 	 * To update the all CSV files of the specific folder
 	 * Run the method "updateAllCSVFiles_Under_Folder()"
 	 */
-	static String folderName = "BNS";
+	static String folderName = "BOA";
 
 	static List<String> allCSVFiles 		= new ArrayList<String>();
 	static List<String> payment_amount_key 		= new ArrayList<String>();
@@ -41,7 +41,7 @@ public class UpdateCSVFile {
 	static List<Integer> integerColumns = new ArrayList<Integer>();
 
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public static void updateSigleCSV_File() throws Exception {
 		
 		integerColumns.add(0);   	// 	paiment_id
@@ -123,10 +123,9 @@ public class UpdateCSVFile {
 			
 			csvReader = new BufferedReader(new FileReader(System.getProperty("user.dir") +File.separator + folderName +File.separator + fileName));
 			
-			// Enable below lines to count the rows
-			//numberOfRowsInFile = getNumberOfRows(csvReader);
-			//csvReader.close();			
-			//csvReader = new BufferedReader(new FileReader(System.getProperty("user.dir") +File.separator + folderName +File.separator + fileName));
+			numberOfRowsInFile = getNumberOfRows(csvReader);
+			csvReader.close();			
+			csvReader = new BufferedReader(new FileReader(System.getProperty("user.dir") +File.separator + folderName +File.separator + fileName));
 			
 			// create a folder, where updated csv file will be placed
 			File f = new File(folderName+ File.separator + "updated_CSV_Files");

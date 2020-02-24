@@ -47,6 +47,8 @@ public class CommonMethods extends TestBase {
 		return driver.findElement(by);
 	}
 
+	
+	
 	public static List<WebElement> getElements(String locator) {
 
 		By by = null;
@@ -93,9 +95,12 @@ public class CommonMethods extends TestBase {
 	}
 
 	public static void sendKeys(String locator, String TestData, String webElementNameOfLocator) throws Exception {
-		getElement(locator).clear();
-		getElement(locator).sendKeys(TestData);
-		ExecutionLog.log("Entered \"" + TestData + "\" in field '" + webElementNameOfLocator + "'");
+		if(TestData.length()>1) {
+			getElement(locator).clear();
+			getElement(locator).sendKeys(TestData);
+			ExecutionLog.log("Entered \"" + TestData + "\" in field '" + webElementNameOfLocator + "'");
+		}
+		
 	}
 
 
@@ -371,6 +376,45 @@ public class CommonMethods extends TestBase {
 		}
 	}
 
+	
+	/**
+	 * @author Rajuddin
+	 * @param locator
+	 * @param webElementNameOfLocator
+	 * @throws Exception
+	 * @description Verify that the Element is not present on the webpage
+	 */
+	public void verifyElementNotPresent(String locator, String webElementNameOfLocator, Object...runStatus) throws Exception {
+		driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS) ;
+	
+			try {
+				Assert.assertFalse(isElementPresent(locator));
+				ExecutionLog.log ("\"" + webElementNameOfLocator + "\" is disable or not Present");
+			} catch (AssertionError e) {
+				ExecutionLog.log ("Verify The data of " + webElementNameOfLocator);
+				ExecutionLog.log("====Failed==== \""+webElementNameOfLocator+"\"  should not be shown");
+			//	getScreenShotOnCheckpointFailure(webElementNameOfLocator.replace("*", ""), e, locator);
+				e.printStackTrace();
+			}	
+		driver.manage().timeouts().implicitlyWait(120,TimeUnit.SECONDS) ;
+	}
+	
+
+	/**
+	 * @author Rajuddin
+	 * @description Verify that the text is present on the webpage
+	 * @return Elemet Status, true: if present on the page else false
+	 */
+	public static Boolean isElementPresent(String Locator) {
+		boolean flag = false;
+		List<WebElement> elemList = driver.findElements(By.xpath((Locator)));
+		if(elemList.size()>0) {
+			flag = true;
+		}
+		return flag;
+
+	}
+	
 	/**
 	 * Verify element is not present on screen, if present then verify it is not be displayed
 	 * @param elements (Uniquely located element)

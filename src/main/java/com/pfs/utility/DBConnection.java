@@ -14,6 +14,12 @@ import com.pfs.reporting.ExecutionLog;
 
 public class DBConnection {
 
+//	DEV
+//	static String url = "jdbc:mysql://localhost:3307/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+//	static String username = "aptsa";
+//	static String password = "ELHl3XT6LaDfCEItos989d0NiaX5CoAXhZrF7y4S";
+//	
+//	QA
 	static String url = "jdbc:mysql://localhost:3308/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	static String username = "apt";
 	static String password = "7NfbD7AZVB5y9tww";
@@ -51,7 +57,7 @@ public class DBConnection {
 	public static void executeInsertDeleteQuery(String query) throws SQLException {
 		connectDB() ;
 		try {		
-			ExecutionLog.log("The SQL query is: " + query);
+			ExecutionLog.log(query);
 			stmt.executeUpdate(query);  
 			disconnectDB();
 		} catch(Exception e) {

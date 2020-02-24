@@ -29,6 +29,13 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 	public static String txt_account ;
 	public static String inp_account_num ;
 	public static String txt_edit_account;	
+	
+	
+	//Remove account locators
+	public static String loc_remove_account;
+	public static String loc_text_output_value;
+	public static String loc_accountRemovedMsg;
+	
 
 	public AddEditAndRemovePaymentTypePageActions() {
 
@@ -56,7 +63,9 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		btn_next 				= "//span[contains(text(),'Next')]";
 		btn_save 				= "//span[contains(text(),'Save')]";
 		btn_done 				= "//span[contains(text(),'Done')]";
-
+		loc_remove_account		="//button[@id='tranForm:delbtn']";
+		loc_text_output_value 	="//span[@class='output-value'] | //span[contains(text(),'account number')]/following-sibling::div/span";
+		loc_accountRemovedMsg		= "//li[@role='alert']/span[text()='Account has been removed.']";
 	}
 
 	/**
@@ -87,7 +96,7 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		sendKeys(loc_accountNumberField, var_accountNumber, "Account Number");
 		Thread.sleep(5000);
 		clickOn(loc_next, "Next Button");
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		clickOn(loc_done, "Done Button");
 		Thread.sleep(20000);
 		CommonMethods.verifyTextOf(CommonMethods.getElement(loc_accountNumber), var_accountNumber, "Account Number");
@@ -120,6 +129,7 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		
 
 	}
+	
 
 	/**
 	 * Edit account number
@@ -136,4 +146,55 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		Thread.sleep(10000);
 		CommonMethods.verifyTextOf(getElement(txt_edit_account), var_editAccountNumber, "Edit Account Number");
 	}
+	
+	/**
+	 * Edit account number
+	 * @throws Exception 
+	 */
+	public static void removeAccountNumber() throws Exception {
+		if(CommonMethods.getElements(txt_account).size() > 0) {
+			clickOn(txt_account, "Account Number");
+			clickOn(btn_next, "Next Button");
+			Thread.sleep(10000);
+		}		
+		
+		clickOn(loc_remove_account, "Remove Button");
+		Thread.sleep(10000);
+		CommonMethods.verifyTextOf(getElement(loc_accountRemovedMsg), "Account has been removed.", "Account has been removed. message");
+	}
+	
+	
+	
+	public static void removeAccount() throws Exception {
+		ExecutionLog.log(ExecutionLog.color("blue", "======Functionality: remove Account======="));
+		driver = TestBase.setDriver(browser, var_appURL);
+		LoginLogoutPageActions login = new LoginLogoutPageActions();
+		login.getLogin(var_adminUserName, var_adminPass);
+
+		Thread.sleep(5000);
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", CommonMethods.getElement(radio_paymentType));
+		clickOn(radio_paymentType, "radio button of payment type");
+		Thread.sleep(5000);
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", CommonMethods.getElement(radio_paymentType));
+
+		clickOn(btn_remove, "remove Button");
+		Thread.sleep(5000);
+		
+		
+		removeAccountNumber();
+		clickOn(btn_done, "Done Button");
+	
+		
+		//verifyElementIsNotDisplayed(getElement("//tbody[@id='mainForm:tranmainDT_data'] | //div[@id='content']").getText().contains(var_editAccountNumber), "Non-Presence of Account Number");
+		ExecutionLog.log(ExecutionLog.color("blue", "===================================================="));
+		ExecutionLog.log("");
+		driver.close();
+		
+
+	}
 }
+
+
+
+
+

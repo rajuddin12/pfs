@@ -12,11 +12,11 @@ import org.testng.annotations.Test;
 
 import com.pfs.utility.DBConnection;
 
-public class MonthlyReports {
+public class DailyReports {
 
 	ArrayList<String> CSVData = new  ArrayList<String> ();
 	BufferedReader csvReader = null;
-	String fileName = "6_40_86_1_desj86_no_activity_users_1.csv";
+	String fileName = "Daily_3.csv";
 
 	String paiment_id;
 	String acct_nbr;
@@ -31,6 +31,7 @@ public class MonthlyReports {
 
 	@Test
 	public void insertData() throws Exception {
+		//DBConnection.executeQuery("Select * from paytax.payment where payment_id=7;");
 		//sdf.parse(date.getDate());
 		insertCSVDataInDB(fileName);
 	}
@@ -47,12 +48,12 @@ public class MonthlyReports {
 	
 	private String getValues_MonthlyReport() {
 	//	getDate();
-		String var_TransDate 			 ="20200105";
+		String var_TransDate 			 ="20200131";
 		String var_TransTime 			 ="9464348";
-		String var_PaymentDate 			 ="20200105";
-		String var_FillingDate  		 ="20200105";
-		String var_ReportThruDate  		 ="20200105";
-		String var_fi_settlement_date 	 ="20200105";
+		String var_PaymentDate 			 ="20200131";
+		String var_FillingDate  		 ="20200131";
+		String var_ReportThruDate  		 ="20200131";
+		String var_fi_settlement_date 	 ="20200131";
 		String var_recipient_settlement_date = "0";
 		String var_CreatedDateWithTime = "2020-01-01 10:00:00";
 		String var_UpdatedDateWithTime = "2020-01-01 10:00:00";

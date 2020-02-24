@@ -37,7 +37,7 @@ public class ExecutionLog {
 
 			} else {
 				System.out.println(text);
-				//ExtentTestManager.getTest().log(LogStatus.INFO, text);
+				ExtentTestManager.getTest().log(LogStatus.INFO, text);
 			}
 		} catch (Exception e) { 
 			System.err.println("ERROR: " + e.getMessage()); 
@@ -60,7 +60,7 @@ public class ExecutionLog {
 	 * It will color the text in the Test NG Report
 	 */
 	public static String color(String color, String text) {
-		String coloredtext  = "<span style=\"color:"+ color + ";\">"+text+"</span>";
+		String coloredtext  = "<span style=\"color:"+ color + "\">"+text+"</span>";
 		return coloredtext;
 	}
 
