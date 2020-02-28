@@ -39,11 +39,17 @@ public class TestBase  {
 	public static String var_editAccountNumber ;
 	public static String var_paymentDate;
 	public static String var_endDate;
-	public static String var_QSTDate;
+	public static String var_QSTFrom;	
+	public static String var_QSTTo_DatePaymentMadeTtoEmployees	;
+	public static String var_GSTFrom	;
+	public static String var_GSTTo	;
 	public static String var_paymentTypeSearch;
 	public static String var_status;
 	public static String var_ReportingFromDate;
 	public static String var_ReportingToDate;
+	public static String var_DateYearToEmployees;
+	public static String var_NumberEmployees;
+	public static String var_DateMonthNoToEmployees;
 	public static String var_PeriodEnding;
 	public static String var_DueDate;
 	public static String var_confirmationNo_1 = "6000420";

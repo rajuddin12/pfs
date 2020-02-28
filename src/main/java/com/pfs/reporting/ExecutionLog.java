@@ -32,7 +32,8 @@ public class ExecutionLog {
 				TestBase.TestCaseStatus = false;
 				text = "[FAIL]  "+ text;
 				System.out.println(text);
-				ExtentTestManager.getTest().log(LogStatus.FAIL,color("red", text));
+//				ExtentTestManager.getTest().log(LogStatus.FAIL,color("red", text));
+				ExtentTestManager.getTest().log(LogStatus.INFO,color("red", text));
 			} else if(text.contains("ScreenShot") ) { 
 
 			} else {

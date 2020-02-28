@@ -85,12 +85,20 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 //		LoginLogoutPageActions login = new LoginLogoutPageActions();
 //		login.getLogin(var_adminUserName, var_adminPass);
 
-		clickOn(loc_addPaymentType, "addPaymentType");
-		Thread.sleep(5000);
-		/*if(var_appURL.contains("pfs")) {
-			clickOn("//label[text()='Government tax payment and filing service:']","Government tax payment and filing service:");
-			Thread.sleep(5000);	
-		}*/
+//		clickOn("//span[text()='Registered payments and accounts']", "Registered payments and accounts");
+
+		try {
+			// If FI does not has any account in the list than we will not get below link
+			clickOn(loc_addPaymentType, "addPaymentType");
+			Thread.sleep(5000);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+//		if(var_appURL.contains("pfs")) {
+//			clickOn("//label[text()='Government tax payment and filing service:']","Government tax payment and filing service:");
+//			Thread.sleep(5000);	
+//		}
 		
 		CommonMethods.selectValueFromDropDown(loc_rowSelectorForPaymentType, "100", "rowSelectorForPaymentType");
 		Thread.sleep(10000);

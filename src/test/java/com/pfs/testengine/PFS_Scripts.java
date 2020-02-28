@@ -92,8 +92,15 @@ public class PFS_Scripts extends CommonMethods {
 		 var_PeriodEnding		= args[11];
 		 var_ReportingFromDate 	= args[12];
 		 var_ReportingToDate	= args[13];
+		 var_DateYearToEmployees= args[14];
+		 var_DateMonthNoToEmployees	= args[15];
+		 var_NumberEmployees	= args[16];
 		 var_DueDate			= args[20];
-		 var_QSTDate			= args[21];
+		 var_GSTFrom			= args[21];
+		 var_GSTTo				= args[22];
+		 var_QSTFrom			= args[23];
+		 var_QSTTo_DatePaymentMadeTtoEmployees	= args[24];
+		 var_adminUserName2		= "33011424-10000";//args[22];
 		
 		
 		 // Initialize Objects
@@ -103,9 +110,12 @@ public class PFS_Scripts extends CommonMethods {
 		 new FutureTransactionsPageActions();
 		 try {
 			initialize();
+			//addAccount();
 			try {
-				addAccount();
+			
 			} catch (Exception e) {
+				clickOn("//span[text()='Cancel']", "Cancel button");
+				Thread.sleep(5000);
 				ExecutionLog.log("Account Already exist  OR   System Busy");
 				ReportScreenshot.captureAndDisplayScreenShots(driver);
 				ExtentTestManager.getTest().log(LogStatus.INFO, org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(e));
@@ -127,7 +137,7 @@ public class PFS_Scripts extends CommonMethods {
 		
 			editAccount();
 			removeAccount();
-			driver.close();
+			driver.quit();
 			 
 		} catch (Exception e) {
 			//driver.close();

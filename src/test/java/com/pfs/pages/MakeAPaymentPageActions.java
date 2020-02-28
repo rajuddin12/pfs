@@ -27,12 +27,20 @@ public class MakeAPaymentPageActions extends TestBase {
 	public static String loc_periodEnding;
 	public static String loc_EndDate;
 	public static String loc_DueDate;
-	public static String loc_QSTDate;
+	public static String loc_QSTFrom;
+	public static String loc_QSTTo;
+	public static String loc_GSTFrom;
+	public static String loc_GSTTo;
 	public static String loc_pendingApproval;
 	public static String loc_ApprovalButton;
 	public static String loc_OK_Approval;
+	public static String loc_DateYearToEmployees;
+	public static String loc_DateMonthNoToEmployees;
+	public static String loc_NumberOfEmployee ;
 	
-	public static String Validation_Msg_TransactionApproval = "The transaction is now in Pending Approval status and requires  1 approver(s).";
+	
+	
+	public static String Validation_Msg_TransactionApproval = "The transaction is now in Pending Approval status and requires 1 approver(s).";
 
 
 
@@ -42,7 +50,6 @@ public class MakeAPaymentPageActions extends TestBase {
 		loc_reportingPeriodTo 	= "//input[@id='detailForm:detailViewId:reportingPeriodToId_input']";											
 		loc_paymentDate 		= "//input[@id='detailForm:detailViewId:paymentDateId_input'] | //input[contains(@id,'pmtDate_input')]";
 												
-		//loc_endDate				="";
 		loc_enterAmountField 	="//input[@id='detailForm:detailViewId:salesOther101RevenueId_input'] | //input[contains(@id,'amt1_input')] | //input[contains(@id,'amt12_input')] | //input[contains(@id,'amt8_input')]";
 		loc_btnPay    			="//button[@id='mainForm:payBt']";
 		loc_btnSubmit    		="//button[@id='detailForm:submitButton']";
@@ -51,10 +58,21 @@ public class MakeAPaymentPageActions extends TestBase {
 		loc_periodEnding		="//div[contains(@id,'rptThruDate')]";
 		loc_EndDate				="//div[contains(@id,'rptThruDate')]  | //input[contains(@id,'rptThruDate')]";
 		loc_DueDate				="//input[contains(@id,'dueDate_input')]";
-		loc_QSTDate				="//input[contains(@id,'pmtExt_extDate1_8_input')]";
+		loc_QSTFrom				="//input[contains(@id,'pmtExt_extDate1_8_input')]";		
+		loc_QSTTo				="//input[contains(@id,'rptThruDate_input')]";
+		loc_GSTFrom				="//input[contains(@id,'pmtExt_extDate35_42_input')]";
+		loc_GSTTo				="//input[contains(@id,'pmtExt_extDate43_50_input')]";
+		
 		loc_pendingApproval		="//*[@id='mainForm:pending_data']/tr/td[contains(text(),'"+ var_accountNumber +"')]/../td[contains(text(),'Pending approval')]";
 		loc_ApprovalButton 		= "//button[@id='ptranDetailForm:approveBtn']";
 		loc_OK_Approval		="//button[@id='ptranDetailForm:approveDialogOkBtnId']";
+		
+		
+		loc_DateYearToEmployees = "//label[contains(@id,'periodYear_label')]";
+		
+		loc_DateMonthNoToEmployees ="//label[contains(@id,'periodMonth_label')]";
+		loc_NumberOfEmployee =		"//input[contains(@id,'amt3_input')]";
+		
 	}
 
 
@@ -65,6 +83,7 @@ public class MakeAPaymentPageActions extends TestBase {
 		LoginLogoutPageActions login = new LoginLogoutPageActions();
 		login.getLogin(var_adminUserName, var_adminPass);*/
 		maekAPayment_2();
+	
 		
 		ExecutionLog.log(ExecutionLog.color("blue", "===================================================="));
 		ExecutionLog.log("");
@@ -75,7 +94,7 @@ public class MakeAPaymentPageActions extends TestBase {
 
 	public static void maekAPayment_2() throws Exception {
 		// select radio button of respective payment type
-
+		//clickOn("//span[text()='Registered payments and accounts']", "Registered payments and accounts");
 		Thread.sleep(5000);
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", getElement(radio_paymentType));
 		clickOn(radio_paymentType, "radio button of payment type");
@@ -96,33 +115,37 @@ public class MakeAPaymentPageActions extends TestBase {
 	
 
 		if(var_ReportingFromDate.length()>1) {
-			sendKeys(loc_reportingPeriodFrom, var_ReportingFromDate, "Reporting From");
+			sendKeys(loc_reportingPeriodFrom,   var_ReportingFromDate, "Reporting From");
 			Thread.sleep(5000);
-			//sendKeys(loc_reportingPeriodTo,	  var_ReportingToDate, "Reporting To");
-			//Thread.sleep(5000);	
-
-//			sendKeys(loc_paymentDate, var_paymentDate, "Payment Date");
-			selectDate(loc_paymentDate, var_paymentDate, "Payment Date");
+			selectDate(loc_paymentDate, 		var_paymentDate, 		"Payment Date");
 			Thread.sleep(5000);	
-//			sendKeys(loc_reportingPeriodTo,	  var_ReportingToDate, "Reporting To");
-			selectDate(loc_reportingPeriodTo,	  var_ReportingToDate, "Reporting To");
-			clickOn(loc_paymentDate, "Help Click");			
-		} else 
-		{
-			selectDate(loc_QSTDate, var_QSTDate, "QST Date");
-			//sendKeys(loc_QSTDate, var_QSTDate, "QST Date");
+			selectDate(loc_reportingPeriodTo,	var_ReportingToDate, 	"Reporting To");
+			clickOn(loc_paymentDate, 	"Help Click");			
+		} else  if(var_DateYearToEmployees.length()>1) {
+			clickOn(loc_DateYearToEmployees, "Year Selector");		
+			clickOn("//li[text()='" + var_DateYearToEmployees+"']", "Selected year "  + var_DateYearToEmployees);		
+			Thread.sleep(2000);
+			clickOn(loc_DateMonthNoToEmployees, "Month Selector");		
+			clickOn("//li[text()='" + var_DateMonthNoToEmployees+"']","Selected Month "  + var_DateMonthNoToEmployees);
+			Thread.sleep(2000);
+		} else	{
+			selectDate(loc_QSTFrom, var_QSTFrom, "QSTFrom");
+			Thread.sleep(2000);
+			selectDate(loc_QSTTo, 	var_QSTTo_DatePaymentMadeTtoEmployees, 	 "QSTTo");
+			Thread.sleep(2000);
+			selectDate(loc_GSTFrom, var_GSTFrom, "GSTFrom");
+			Thread.sleep(2000);
+			selectDate(loc_GSTTo, 	var_GSTTo, 	 "GSTTo");
 			Thread.sleep(2000);
 			selectDate(loc_EndDate, var_endDate, "End Date");
-			//sendKeys(loc_EndDate, var_endDate, "End Date");
-			//Thread.sleep(2000);
+			Thread.sleep(2000);
 			selectDate(loc_DueDate, var_DueDate, "Due Date");
-			//sendKeys(loc_DueDate, var_DueDate, "Due Date");
 			Thread.sleep(2000);
 			selectDate(loc_paymentDate, var_paymentDate, "Payment Date");
-//			sendKeys(loc_paymentDate, var_paymentDate, "Payment Date");
 			Thread.sleep(2000);
 		}
-
+		
+		sendKeys(loc_NumberOfEmployee, var_NumberEmployees, "NumberEmployees");
 		clickOn(loc_periodEnding, var_PeriodEnding);
 		clickOn("//li[contains(text(),'" + var_PeriodEnding + "')]", var_PeriodEnding);
 		Thread.sleep(10000);
@@ -191,7 +214,7 @@ public class MakeAPaymentPageActions extends TestBase {
 	
 	public static void 	selectDate(String loc, String var_Date, String nameOfLocator) throws Exception {
 		if(var_Date.length()>1) {
-		System.out.println("selecting Date in " + nameOfLocator);	
+		System.out.println("------selecting Date in " + nameOfLocator + "------");	
 		
 		clickOn(loc, "Select date");
 		Thread.sleep(5000);
