@@ -6,10 +6,8 @@ import static com.pfs.utility.CommonMethods.*;
 import org.openqa.selenium.JavascriptExecutor;
 
 import com.pfs.reporting.ExecutionLog;
-import com.pfs.reporting.ExtentTestManager;
 import com.pfs.test.base.TestBase;
 import com.pfs.utility.CommonMethods;
-import com.relevantcodes.extentreports.LogStatus;
 /**
  * This class contains all possible UI elements (and its actions) of RegisteredPaymentsAndAccounts Page
  *
@@ -28,9 +26,11 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 
 	public static String txt_account ;
 	public static String inp_account_num ;
-	public static String txt_edit_account;	
-	
-	
+	public static String txt_edit_account;
+	public static String loc_col_edit_account;
+	public static String loc_number_Of_accountPresentForPaymentType;
+	public static int number_Of_accountPresentForPaymentType;
+	//td[contains(text(),'Federal Payroll Deductions - Monthly/Quarterly -- EMPTX -- (PD7A)')]/..//td[3]/div
 	//Remove account locators
 	public static String loc_remove_account;
 	public static String loc_text_output_value;
@@ -49,11 +49,13 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		System.out.println(var_editAccountNumber);			
 		System.out.println("*********************************************************");
 
-
-		txt_account 			= "//td[contains(text(),'"+ var_accountNumber +"')]";
+		loc_number_Of_accountPresentForPaymentType=	"//td[contains(text(),'" + var_paymentTypeSpace +"')]/..//td[3]/div";
+		
+		txt_account 			= "//*[contains(text(),'"+ var_accountNumber +"')]";
 		inp_account_num 		= "//input[@value='"+var_accountNumber+"']";
-		txt_edit_account 		= "//span[contains(text(),'"+var_editAccountNumber+"')]";	
-		loc_paymentType 		= "//span[contains(text(),'" + var_paymentType+ "')]";
+		txt_edit_account 		= "//*[contains(text(),'"+var_editAccountNumber+"')]";
+		loc_col_edit_account 	= "//td/span[contains(text(),"+var_editAccountNumber+"')]";
+		loc_paymentType 		= "//span[contains(text(),\"" + var_paymentType+ "\")]";
 
 		loc_rowSelectorForPaymentType = "//select[@name='detailForm:pmtTypeDT_rppDD']";
 		loc_spinner 			= "//div[contains(@class,'blockMsg')]";
@@ -79,12 +81,17 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 	public static void addAccount() throws Exception {	
 		
 		ExecutionLog.log(ExecutionLog.color("blue", "======Functionality: Add Account======="));
-		driver = TestBase.setDriver(browser, var_appURL);
-		LoginLogoutPageActions login = new LoginLogoutPageActions();
-		login.getLogin(var_adminUserName, var_adminPass);
+//		driver = TestBase.setDriver(browser, var_appURL);
+//		LoginLogoutPageActions login = new LoginLogoutPageActions();
+//		login.getLogin(var_adminUserName, var_adminPass);
 
 		clickOn(loc_addPaymentType, "addPaymentType");
 		Thread.sleep(5000);
+		/*if(var_appURL.contains("pfs")) {
+			clickOn("//label[text()='Government tax payment and filing service:']","Government tax payment and filing service:");
+			Thread.sleep(5000);	
+		}*/
+		
 		CommonMethods.selectValueFromDropDown(loc_rowSelectorForPaymentType, "100", "rowSelectorForPaymentType");
 		Thread.sleep(10000);
 
@@ -94,25 +101,27 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		Thread.sleep(5000);
 		System.out.println(var_accountNumber);
 		sendKeys(loc_accountNumberField, var_accountNumber, "Account Number");
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		clickOn(loc_next, "Next Button");
 		Thread.sleep(10000);
 		clickOn(loc_done, "Done Button");
 		Thread.sleep(20000);
-		CommonMethods.verifyTextOf(CommonMethods.getElement(loc_accountNumber), var_accountNumber, "Account Number");
+		CommonMethods.verifyTextOf(CommonMethods.getElement(loc_accountNumberSpace), var_accountNumber, "Account Number");
 		ExecutionLog.log("Verified that account number '" + var_accountNumber + "' has been created successfully");
+		number_Of_accountPresentForPaymentType = getElements(loc_number_Of_accountPresentForPaymentType).size();
 		ExecutionLog.log(ExecutionLog.color("blue", "===================================================="));
 		ExecutionLog.log("");
-		driver.close();
+//		driver.close();
 
 	}
 
 	public static void editAccount() throws Exception {
 		ExecutionLog.log(ExecutionLog.color("blue", "======Functionality: Edit Account======="));
-		driver = TestBase.setDriver(browser, var_appURL);
-		LoginLogoutPageActions login = new LoginLogoutPageActions();
-		login.getLogin(var_adminUserName, var_adminPass);
+//		driver = TestBase.setDriver(browser, var_appURL);
+//		LoginLogoutPageActions login = new LoginLogoutPageActions();
+//		login.getLogin(var_adminUserName, var_adminPass);
 
+		clickOn("//span[text()='Registered payments and accounts']", "Registered payments and accounts");
 		Thread.sleep(5000);
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", CommonMethods.getElement(radio_paymentType));
 		clickOn(radio_paymentType, "radio button of payment type");
@@ -123,9 +132,10 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		Thread.sleep(5000);
 		editAccountNumber();
 		clickOn(btn_done, "Done Button");
+		Thread.sleep(10000);
 		ExecutionLog.log(ExecutionLog.color("blue", "===================================================="));
 		ExecutionLog.log("");
-		driver.close();
+//		driver.close();
 		
 
 	}
@@ -136,8 +146,11 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 	 * @throws Exception 
 	 */
 	public static void editAccountNumber() throws Exception {
-		if(CommonMethods.getElements(txt_account).size() > 0) {
+		
+		if(number_Of_accountPresentForPaymentType > 1) {
+//		if(CommonMethods.getElements(txt_account).size() > 0) {
 			clickOn(txt_account, "Account Number");
+			Thread.sleep(2000);
 			clickOn(btn_next, "Next Button");
 			Thread.sleep(10000);
 		}		
@@ -152,8 +165,10 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 	 * @throws Exception 
 	 */
 	public static void removeAccountNumber() throws Exception {
-		if(CommonMethods.getElements(txt_account).size() > 0) {
-			clickOn(txt_account, "Account Number");
+		if(number_Of_accountPresentForPaymentType > 1) {
+//		if(CommonMethods.getElements(loc_col_edit_account).size() > 0) {
+			clickOn(loc_col_edit_account, "Account Number");
+			Thread.sleep(2000);
 			clickOn(btn_next, "Next Button");
 			Thread.sleep(10000);
 		}		
@@ -167,10 +182,10 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 	
 	public static void removeAccount() throws Exception {
 		ExecutionLog.log(ExecutionLog.color("blue", "======Functionality: remove Account======="));
-		driver = TestBase.setDriver(browser, var_appURL);
-		LoginLogoutPageActions login = new LoginLogoutPageActions();
-		login.getLogin(var_adminUserName, var_adminPass);
-
+//		driver = TestBase.setDriver(browser, var_appURL);
+//		LoginLogoutPageActions login = new LoginLogoutPageActions();
+//		login.getLogin(var_adminUserName, var_adminPass);
+		clickOn("//span[text()='Registered payments and accounts']", "Registered payments and accounts");
 		Thread.sleep(5000);
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", CommonMethods.getElement(radio_paymentType));
 		clickOn(radio_paymentType, "radio button of payment type");
@@ -188,7 +203,7 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		//verifyElementIsNotDisplayed(getElement("//tbody[@id='mainForm:tranmainDT_data'] | //div[@id='content']").getText().contains(var_editAccountNumber), "Non-Presence of Account Number");
 		ExecutionLog.log(ExecutionLog.color("blue", "===================================================="));
 		ExecutionLog.log("");
-		driver.close();
+//		driver.close();
 		
 
 	}

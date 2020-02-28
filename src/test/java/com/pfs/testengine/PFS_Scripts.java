@@ -3,22 +3,26 @@ package com.pfs.testengine;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.pfs.excel.operations.ReadExcel;
 import com.pfs.pages.AddEditAndRemovePaymentTypePageActions;
 import com.pfs.pages.FutureTransactionsPageActions;
+import com.pfs.pages.LoginLogoutPageActions;
 import com.pfs.pages.MakeAPaymentPageActions;
 
-import static com.pfs.pages.MakeAPaymentPageActions.*;
-import static com.pfs.utility.CommonMethods.isElementPresent;
-
 import com.pfs.pages.RegisteredPaymentsAndAccountsPageActions;
+import com.pfs.reporting.ExecutionLog;
+import com.pfs.reporting.ExtentTestManager;
+import com.pfs.reporting.ReportScreenshot;
+import com.pfs.test.base.TestBase;
 import com.pfs.utility.CommonMethods;
+import com.relevantcodes.extentreports.LogStatus;
+
 import static com.pfs.pages.AddEditAndRemovePaymentTypePageActions.*;
 import static com.pfs.pages.FutureTransactionsPageActions.*;
+import static com.pfs.pages.MakeAPaymentPageActions.*;
 
 public class PFS_Scripts extends CommonMethods {
 
@@ -53,6 +57,23 @@ public class PFS_Scripts extends CommonMethods {
 
 	}
 	
+	public static void initialize() throws Exception {
+		driver = TestBase.setDriver(browser, var_appURL);
+		LoginLogoutPageActions login = new LoginLogoutPageActions();
+		if(var_adminUserName.contains("-")) {
+			var_userType = "multiAuthUser";
+		}
+		login.getLogin(var_adminUserName, var_adminPass);
+	}
+	
+	public static void initialize_User2() throws Exception {
+		driver = TestBase.setDriver(browser, var_appURL);
+		LoginLogoutPageActions login = new LoginLogoutPageActions();
+		if(var_adminUserName.contains("-")) {
+			var_userType = "multiAuthUser";
+		}
+		login.getLogin(var_adminUserName2, var_adminPass);
+	}
 	
 	@Test(dataProvider= "PFSTestData", groups = "Regression", enabled = true, description="PFS_TestFunctionalities")
 	public void PFS_TestFunctionalities(String[] args) throws Exception {
@@ -68,18 +89,12 @@ public class PFS_Scripts extends CommonMethods {
 		 var_status				= args[8]; 
 		 var_paymentDate 		= args[9];	
 		 var_endDate 			= args[10];
-		 var_ReportingFromDate 	= args[11];
-		 var_ReportingToDate	= args[12];
+		 var_PeriodEnding		= args[11];
+		 var_ReportingFromDate 	= args[12];
+		 var_ReportingToDate	= args[13];
+		 var_DueDate			= args[20];
+		 var_QSTDate			= args[21];
 		
-		/* var_appURL 			= appURL;
-		 var_paymentType 		= paymentType;
-		 var_paymentTypeSpace 	= paymentTypeSpace;
-		 var_adminUserName 		= userName;
-		 var_adminPass 			= pass;
-		 var_accountNumber 	   	= accountNumber;
-		 var_editAccountNumber 	= editAccountNumber;	
-		 var_paymentDate 		= paymentDate;	
-		 var_endDate 			= endDate;	*/
 		
 		 // Initialize Objects
 		 new AddEditAndRemovePaymentTypePageActions();
@@ -87,17 +102,35 @@ public class PFS_Scripts extends CommonMethods {
 		 new MakeAPaymentPageActions();
 		 new FutureTransactionsPageActions();
 		 try {
-			addAccount();
-			maekAPayment();
-			searchTransaction();
-			cancelPayment();
-			searchTransactionNotExist();
-			TransactionHistory("Cancelled", var_confirmationNo_1);
-			TransactionHistory("Cancellation Request", var_confirmationNo_2);
+			initialize();
+			try {
+				addAccount();
+			} catch (Exception e) {
+				ExecutionLog.log("Account Already exist  OR   System Busy");
+				ReportScreenshot.captureAndDisplayScreenShots(driver);
+				ExtentTestManager.getTest().log(LogStatus.INFO, org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(e));
+			}
+			
+			try {
+				makeAPayment();
+				searchTransaction();
+				cancelPayment();
+				searchTransactionNotExist();
+				TransactionHistory("Cancelled", var_confirmationNo_1);
+				TransactionHistory("Cancellation Request", var_confirmationNo_2);
+			} catch (Exception e) {
+				ExecutionLog.log(ExecutionLog.color("red", "The Automation Script failed while doing payment. Please Analyze the executon report for further processing"));
+				ReportScreenshot.captureAndDisplayScreenShots(driver);
+				ExtentTestManager.getTest().log(LogStatus.INFO, org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(e));
+				e.printStackTrace();
+			}
+		
 			editAccount();
 			removeAccount();
+			driver.close();
 			 
 		} catch (Exception e) {
+			//driver.close();
 			e.printStackTrace();
 			throw e;
 		}

@@ -32,17 +32,22 @@ public class TestBase  {
 	public static String var_paymentType ;
 	public static String var_paymentTypeSpace;
 	public static String var_adminUserName ;
+	public static String var_adminUserName2;
+	public static String var_userType = "";
 	public static String var_adminPass ;
 	public static String var_accountNumber ;
 	public static String var_editAccountNumber ;
 	public static String var_paymentDate;
 	public static String var_endDate;
+	public static String var_QSTDate;
 	public static String var_paymentTypeSearch;
 	public static String var_status;
 	public static String var_ReportingFromDate;
 	public static String var_ReportingToDate;
-	public static String var_confirmationNo_1 = "4005440";
-	public static String var_confirmationNo_2 = "4002370";
+	public static String var_PeriodEnding;
+	public static String var_DueDate;
+	public static String var_confirmationNo_1 = "6000420";
+	public static String var_confirmationNo_2 = "6000390";
 	
 	public static int 	 pamentTyperow = 1;
 	

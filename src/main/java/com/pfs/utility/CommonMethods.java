@@ -89,13 +89,15 @@ public class CommonMethods extends TestBase {
 	}
 
 	public static void clickOn(String locator, String webElementNameOfLocator) throws Exception {
-
+		if(webElementNameOfLocator.length()>1) {
 		getElement(locator).click();
 		ExecutionLog.log("Clicked on the '" + webElementNameOfLocator + "'");
+		
+		}
 	}
 
 	public static void sendKeys(String locator, String TestData, String webElementNameOfLocator) throws Exception {
-		if(TestData.length()>1) {
+		if(TestData.length()>1 | TestData.length()>1) {
 			getElement(locator).clear();
 			getElement(locator).sendKeys(TestData);
 			ExecutionLog.log("Entered \"" + TestData + "\" in field '" + webElementNameOfLocator + "'");
@@ -201,14 +203,37 @@ public class CommonMethods extends TestBase {
 	}
 
 	public static void waitForVisibilityOf(WebElement element, int timeOutInSeconds, String elementName) {
-		ExecutionLog.log("Waiting for " + elementName + "........");
-		FluentWait<WebDriver> wait =new FluentWait<WebDriver>(driver)
-				.withTimeout(timeOutInSeconds, TimeUnit.SECONDS)
-				.pollingEvery(1, TimeUnit.SECONDS)
-				.ignoring(NoSuchElementException.class);
-		wait.until(ExpectedConditions.visibilityOf(element));
+		try {
+			ExecutionLog.log("Waiting for " + elementName + "........");
+			FluentWait<WebDriver> wait =new FluentWait<WebDriver>(driver)
+					.withTimeout(timeOutInSeconds, TimeUnit.SECONDS)
+					.pollingEvery(1, TimeUnit.SECONDS)
+					.ignoring(NoSuchElementException.class);
+			wait.until(ExpectedConditions.visibilityOf(element));
 
-		ExecutionLog.log("The " + elementName + " is visible now");
+			ExecutionLog.log("The " + elementName + " is visible now");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+
+	}
+	
+	public static void waitForVisibilityOf(String loc, int timeOutInSeconds, String elementName) {
+		try {
+			
+			ExecutionLog.log("Waiting for " + elementName + "........");
+			FluentWait<WebDriver> wait =new FluentWait<WebDriver>(driver)
+					.withTimeout(timeOutInSeconds, TimeUnit.SECONDS)
+					.pollingEvery(1, TimeUnit.SECONDS)
+					.ignoring(NoSuchElementException.class);
+			wait.until(ExpectedConditions.visibilityOf(getElement(loc)));
+
+			ExecutionLog.log("The " + elementName + " is visible now");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 
 	}
 
@@ -318,9 +343,14 @@ public class CommonMethods extends TestBase {
 	}
 
 	public static void keyboard_TAB() throws Exception{
-		Keyboard keyboard = ((HasInputDevices) driver).getKeyboard();
-		keyboard.pressKey(Keys.CONTROL);
-		keyboard.releaseKey(Keys.TAB);
+		try {
+			Keyboard keyboard = ((HasInputDevices) driver).getKeyboard();
+			keyboard.pressKey(Keys.CONTROL);
+			keyboard.releaseKey(Keys.TAB);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 
 	}
 
@@ -384,7 +414,7 @@ public class CommonMethods extends TestBase {
 	 * @throws Exception
 	 * @description Verify that the Element is not present on the webpage
 	 */
-	public void verifyElementNotPresent(String locator, String webElementNameOfLocator, Object...runStatus) throws Exception {
+	public static void verifyElementNotPresent(String locator, String webElementNameOfLocator, Object...runStatus) throws Exception {
 		driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS) ;
 	
 			try {
@@ -623,7 +653,41 @@ public class CommonMethods extends TestBase {
 			exceptionController(e);
 		}
 	}
+	
+	public static void verifyTextOf(String loc, String expectedText, String elementName) {
+		String actualValue = "";
+		try {
+			
+			actualValue = getElement(loc).getText();
+			Assert.assertEquals(actualValue.trim(), expectedText.trim());
+			ExecutionLog.log("Verified that Expected Value [" + expectedText + "] is matched with actual value [" + actualValue + "]" + " of " + elementName);
+		} catch (AssertionError e) {
+			ExecutionLog.log(loc);
+			ExecutionLog.log("[ASSERTION FAILED]: Expected Value [" + expectedText + "] is NOT matched with actual value [" + actualValue + "]" + " of " + elementName);
+			exceptionController(e);
+		} catch (Exception e1) {
+			ExecutionLog.log(loc);
+			e1.printStackTrace();
+		}
+	}
 
+	/**
+	 * Verify actual text of provided element with expectedText
+	 * @param element
+	 * @param expectedValue
+	 * @param elementName
+	 */
+	public static void verifyPresenceOfElement(String locator,	String elementName) {
+		try {
+			Assert.assertTrue(isElementPresent(locator));
+			ExecutionLog.log("Verified that element [" + elementName + "] is present");
+		} catch (AssertionError e) {
+			ExecutionLog.log("[ASSERTION FAILED]: Verified that element [" + elementName + "] is NOT present");
+
+			exceptionController(e);
+		}
+	}
+	
 	public static void assertTrue(Boolean flag, String msgOnFailures) {
 		try {
 			Assert.assertTrue(flag, msgOnFailures);
