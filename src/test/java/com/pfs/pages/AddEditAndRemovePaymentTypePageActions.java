@@ -26,6 +26,8 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 
 	public static String txt_account ;
 	public static String inp_account_num ;
+	public static String loc_nickName;
+	public static String loc_editnickName;
 	public static String txt_edit_account;
 	public static String loc_col_edit_account;
 	public static String loc_number_Of_accountPresentForPaymentType;
@@ -49,12 +51,14 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		System.out.println(var_editAccountNumber);			
 		System.out.println("*********************************************************");
 
-		loc_number_Of_accountPresentForPaymentType=	"//td[contains(text(),'" + var_paymentTypeSpace +"')]/..//td[3]/div";
+		loc_number_Of_accountPresentForPaymentType=	"//td[contains(text(),\"" + var_paymentTypeSpace +"\")]/..//td[3]/div";
 		
 		txt_account 			= "//*[contains(text(),'"+ var_accountNumber +"')]";
 		inp_account_num 		= "//input[@value='"+var_accountNumber+"']";
+		loc_nickName 		= "//input[contains(@id,'nickname')]";
+		loc_editnickName 		= "//input[contains(@id,'nickname')]";
 		txt_edit_account 		= "//*[contains(text(),'"+var_editAccountNumber+"')]";
-		loc_col_edit_account 	= "//td/span[contains(text(),"+var_editAccountNumber+"')]";
+		loc_col_edit_account 	= "//td/span[contains(text(),'"+var_editAccountNumber+"')]";
 		loc_paymentType 		= "//span[contains(text(),\"" + var_paymentType+ "\")]";
 
 		loc_rowSelectorForPaymentType = "//select[@name='detailForm:pmtTypeDT_rppDD']";
@@ -107,13 +111,15 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		Thread.sleep(10000);
 		clickOn(loc_next, "Next Button");
 		Thread.sleep(5000);
-		System.out.println(var_accountNumber);
 		sendKeys(loc_accountNumberField, var_accountNumber, "Account Number");
 		Thread.sleep(10000);
+		sendKeys(loc_nickName, var_nickName, "Nick Name");
+		Thread.sleep(2000);
 		clickOn(loc_next, "Next Button");
 		Thread.sleep(10000);
 		clickOn(loc_done, "Done Button");
 		Thread.sleep(20000);
+		System.out.println(loc_accountNumberSpace);
 		CommonMethods.verifyTextOf(CommonMethods.getElement(loc_accountNumberSpace), var_accountNumber, "Account Number");
 		ExecutionLog.log("Verified that account number '" + var_accountNumber + "' has been created successfully");
 		number_Of_accountPresentForPaymentType = getElements(loc_number_Of_accountPresentForPaymentType).size();
@@ -162,7 +168,9 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 			clickOn(btn_next, "Next Button");
 			Thread.sleep(10000);
 		}		
-		sendKeys(inp_account_num, var_editAccountNumber, "Account Number");
+		sendKeys(loc_nickName, var_nickName, "Nick Name");
+		Thread.sleep(2000);
+		sendKeys(inp_account_num, var_editAccountNumber, "Account Number");		
 		clickOn(btn_save, "Save Button");
 		Thread.sleep(10000);
 		CommonMethods.verifyTextOf(getElement(txt_edit_account), var_editAccountNumber, "Edit Account Number");

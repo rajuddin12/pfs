@@ -37,6 +37,7 @@ public class MakeAPaymentPageActions extends TestBase {
 	public static String loc_DateYearToEmployees;
 	public static String loc_DateMonthNoToEmployees;
 	public static String loc_NumberOfEmployee ;
+	public static String loc_TaxationYear;
 	
 	
 	
@@ -62,6 +63,7 @@ public class MakeAPaymentPageActions extends TestBase {
 		loc_QSTTo				="//input[contains(@id,'rptThruDate_input')]";
 		loc_GSTFrom				="//input[contains(@id,'pmtExt_extDate35_42_input')]";
 		loc_GSTTo				="//input[contains(@id,'pmtExt_extDate43_50_input')]";
+		loc_TaxationYear		=	"//input[contains(@id,'periodYear')]";
 		
 		loc_pendingApproval		="//*[@id='mainForm:pending_data']/tr/td[contains(text(),'"+ var_accountNumber +"')]/../td[contains(text(),'Pending approval')]";
 		loc_ApprovalButton 		= "//button[@id='ptranDetailForm:approveBtn']";
@@ -129,6 +131,8 @@ public class MakeAPaymentPageActions extends TestBase {
 			clickOn("//li[text()='" + var_DateMonthNoToEmployees+"']","Selected Month "  + var_DateMonthNoToEmployees);
 			Thread.sleep(2000);
 		} else	{
+			sendKeys(loc_TaxationYear, var_TaxationYear, "Taxation Year");
+			Thread.sleep(2000);
 			selectDate(loc_QSTFrom, var_QSTFrom, "QSTFrom");
 			Thread.sleep(2000);
 			selectDate(loc_QSTTo, 	var_QSTTo_DatePaymentMadeTtoEmployees, 	 "QSTTo");
@@ -137,7 +141,12 @@ public class MakeAPaymentPageActions extends TestBase {
 			Thread.sleep(2000);
 			selectDate(loc_GSTTo, 	var_GSTTo, 	 "GSTTo");
 			Thread.sleep(2000);
-			selectDate(loc_EndDate, var_endDate, "End Date");
+			try {
+				selectDate(loc_EndDate, var_endDate, "End Date");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			Thread.sleep(2000);
 			selectDate(loc_DueDate, var_DueDate, "Due Date");
 			Thread.sleep(2000);

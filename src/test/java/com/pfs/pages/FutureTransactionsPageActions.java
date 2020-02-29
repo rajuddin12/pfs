@@ -35,6 +35,7 @@ public class FutureTransactionsPageActions extends TestBase {
 	public static String loc_confirationNumberField;
 	public static String loc_paymentEndDateField;
 	public static String loc_ConfirmationNo_2;
+	public static String loc_home;
 	
 	
 	public FutureTransactionsPageActions() {
@@ -52,6 +53,7 @@ public class FutureTransactionsPageActions extends TestBase {
 		loc_btnYes					="//span[contains(text(),'Yes')]";
 		loc_message					="//span[contains(text(),'Cancellation request has been successful')]";
 		loc_ConfirmationNo_2		="//span[(.='Confirmation number:')]/ancestor::tr/td[2]";
+		loc_home 					="//span[text()='Registered payments and accounts'] | //a[@title='Home']";
 		
 		//Transaction History
 		loc_TransactionHistory 	="//span[text()='Transaction history']";
@@ -69,7 +71,7 @@ public class FutureTransactionsPageActions extends TestBase {
 		/*driver = TestBase.setDriver(browser, var_appURL);
 		LoginLogoutPageActions login = new LoginLogoutPageActions();
 		login.getLogin(var_adminUserName, var_adminPass);*/
-		clickOn("//span[text()='Registered payments and accounts']", "Registered payments and accounts");
+		clickOn(loc_home, "Registered payments and accounts");
 		Thread.sleep(10000);
 		clickOn(loc_FutureTransactionMenu, "FutureTransactionMenu");
 		Thread.sleep(5000);
@@ -95,8 +97,11 @@ public class FutureTransactionsPageActions extends TestBase {
 		LoginLogoutPageActions login = new LoginLogoutPageActions();
 		login.getLogin(var_adminUserName, var_adminPass);
 		*/
+//		clickOn(loc_home, "Registered payments and accounts");// Delete this event
+//		Thread.sleep(10000);
 		clickOn(loc_FutureTransactionMenu, "FutureTransactionMenu");
-		sendKeys(loc_paymentDateTo, var_paymentDate, "Payment Date To");
+		MakeAPaymentPageActions.selectDate(loc_paymentDateTo, 		var_paymentDate, 		"Payment Date");
+		//sendKeys(loc_paymentDateTo, var_paymentDate, "Payment Date To");
 		clickOn(loc_btnSearch, "Search Button");
 		Thread.sleep(10000);
 		CommonMethods.selectValueFromDropDown("//select[@name='searchForm:transDT_rppDD']", "100", "rowSelectorForPaymentType");

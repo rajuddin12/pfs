@@ -79,12 +79,19 @@ public class PFS_Scripts extends CommonMethods {
 	public void PFS_TestFunctionalities(String[] args) throws Exception {
 	//public void PFS_TestFunctionalities( String paymentType, String paymentTypeSpace, String appURL,  String userName,  String pass,  String accountNumber,  String editAccountNumber, String paymentDate, String endDate) throws Exception {
 		 var_paymentType 		= args[0];
-		 var_paymentTypeSpace 	= args[1];
+		 if(var_appURL.contains("pfs")) {
+			 // In PFS the name of payment type is same at Add payment page and at Registered Payment and Account page
+			 // WehereAS on UAT there is space issue
+			 var_paymentTypeSpace 	= var_paymentType;
+		 } else  var_paymentTypeSpace 	= args[1];
+		
 		 var_appURL 			= args[2];
 		 var_adminUserName 		= args[3];
 		 var_adminPass 			= args[4];
 		 var_accountNumber 	   	= args[5];
-		 var_editAccountNumber 	= args[6];			 
+		 var_editAccountNumber 	= args[6];	
+		 var_nickName			= args[17];	
+		 var_editnickName		= args[18];	
 		 var_paymentTypeSearch 	= args[7];
 		 var_status				= args[8]; 
 		 var_paymentDate 		= args[9];	
@@ -100,7 +107,9 @@ public class PFS_Scripts extends CommonMethods {
 		 var_GSTTo				= args[22];
 		 var_QSTFrom			= args[23];
 		 var_QSTTo_DatePaymentMadeTtoEmployees	= args[24];
+		 var_TaxationYear	= args[32];
 		 var_adminUserName2		= "33011424-10000";//args[22];
+		 
 		
 		
 		 // Initialize Objects
@@ -109,34 +118,25 @@ public class PFS_Scripts extends CommonMethods {
 		 new MakeAPaymentPageActions();
 		 new FutureTransactionsPageActions();
 		 try {
-			initialize();
-			//addAccount();
+			 initialize();
+			 addAccount();
 			try {
-			
-			} catch (Exception e) {
-				clickOn("//span[text()='Cancel']", "Cancel button");
-				Thread.sleep(5000);
-				ExecutionLog.log("Account Already exist  OR   System Busy");
-				ReportScreenshot.captureAndDisplayScreenShots(driver);
-				ExtentTestManager.getTest().log(LogStatus.INFO, org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(e));
-			}
-			
-			try {
-				makeAPayment();
-				searchTransaction();
-				cancelPayment();
-				searchTransactionNotExist();
-				TransactionHistory("Cancelled", var_confirmationNo_1);
-				TransactionHistory("Cancellation Request", var_confirmationNo_2);
-			} catch (Exception e) {
-				ExecutionLog.log(ExecutionLog.color("red", "The Automation Script failed while doing payment. Please Analyze the executon report for further processing"));
-				ReportScreenshot.captureAndDisplayScreenShots(driver);
-				ExtentTestManager.getTest().log(LogStatus.INFO, org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(e));
-				e.printStackTrace();
-			}
-		
-			editAccount();
-			removeAccount();
+				 makeAPayment();
+				 searchTransaction();
+				 cancelPayment();
+				 searchTransactionNotExist();
+				 TransactionHistory("Cancelled", var_confirmationNo_1);
+				 TransactionHistory("Cancellation Request", var_confirmationNo_2);
+				 
+				 //driver.quit();
+			 } catch (Exception e) {
+				 ExecutionLog.log(ExecutionLog.color("red", "The Automation Script failed while doing payment. Please Analyze the executon report for further processing"));
+				 ReportScreenshot.captureAndDisplayScreenShots(driver);
+				 ExtentTestManager.getTest().log(LogStatus.INFO, org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(e));
+				 e.printStackTrace();
+			 }
+			 editAccount();
+			 removeAccount();
 			driver.quit();
 			 
 		} catch (Exception e) {

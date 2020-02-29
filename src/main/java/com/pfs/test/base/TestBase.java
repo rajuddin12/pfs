@@ -37,6 +37,8 @@ public class TestBase  {
 	public static String var_adminPass ;
 	public static String var_accountNumber ;
 	public static String var_editAccountNumber ;
+	public static String var_nickName;
+	public static String var_editnickName;
 	public static String var_paymentDate;
 	public static String var_endDate;
 	public static String var_QSTFrom;	
@@ -48,6 +50,7 @@ public class TestBase  {
 	public static String var_ReportingFromDate;
 	public static String var_ReportingToDate;
 	public static String var_DateYearToEmployees;
+	public static String var_TaxationYear;
 	public static String var_NumberEmployees;
 	public static String var_DateMonthNoToEmployees;
 	public static String var_PeriodEnding;
