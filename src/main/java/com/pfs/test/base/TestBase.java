@@ -57,6 +57,13 @@ public class TestBase  {
 	public static String var_DueDate;
 	public static String var_confirmationNo_1 = "6000420";
 	public static String var_confirmationNo_2 = "6000390";
+	public static String var_City;
+	public static String var_Address;
+	public static String var_Province;
+	public static String var_postalCode;
+	public static String var_SiteNumber ;
+	public static String var_SiteNumber_Edit;
+	public static String  var_CustomerNumber;
 	
 	public static int 	 pamentTyperow = 1;
 	

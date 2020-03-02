@@ -97,10 +97,21 @@ public class CommonMethods extends TestBase {
 	}
 
 	public static void sendKeys(String locator, String TestData, String webElementNameOfLocator) throws Exception {
-		if(TestData.length()>1 | TestData.length()>1) {
+		if(TestData.length()>1) {
 			getElement(locator).clear();
 			getElement(locator).sendKeys(TestData);
 			ExecutionLog.log("Entered \"" + TestData + "\" in field '" + webElementNameOfLocator + "'");
+			Thread.sleep(2000);
+		}
+		
+	}
+	
+	public static void sendKeys(WebElement elem, String TestData, String webElementNameOfLocator) throws Exception {
+		if(TestData.length()>1) {
+			elem.clear();
+			elem.sendKeys(TestData);
+			ExecutionLog.log("Entered \"" + TestData + "\" in field '" + webElementNameOfLocator + "'");
+			Thread.sleep(2000);
 		}
 		
 	}

@@ -4,7 +4,14 @@ import static com.pfs.pages.RegisteredPaymentsAndAccountsPageActions.radio_payme
 import static com.pfs.utility.CommonMethods.clickOn;
 import static com.pfs.utility.CommonMethods.sendKeys;
 
+import java.util.Iterator;
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
+
 import com.pfs.reporting.ExecutionLog;
 import com.pfs.test.base.TestBase;
 import static com.pfs.testengine.PFS_Scripts.*;
@@ -158,7 +165,18 @@ public class MakeAPaymentPageActions extends TestBase {
 		clickOn(loc_periodEnding, var_PeriodEnding);
 		clickOn("//li[contains(text(),'" + var_PeriodEnding + "')]", var_PeriodEnding);
 		Thread.sleep(10000);
-		sendKeys(loc_enterAmountField, "50", "Payment Date");
+		
+//		List<WebElement> elems = driver.findElements(By.xpath("//span[contains(@id,'amt') and contains(@id,'_input') and @type='text']"));
+//		for(WebElement elem : elems) {
+//			try {
+//				sendKeys(elem, "50", "Amount");
+//				keyboard_TAB();
+//			} catch (StaleElementReferenceException e) {
+//				// TODO: handle exception
+//			}			
+//		}
+		
+		sendKeys(loc_enterAmountField, "50", "Payment");
 
 		//sendKeys(loc_paymentDate, var_paymentDate, "Payment Date");
 //		selectDate(loc_paymentDate, var_paymentDate, "Payment Date"); already covered in above if-else loop

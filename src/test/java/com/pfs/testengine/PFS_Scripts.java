@@ -107,8 +107,16 @@ public class PFS_Scripts extends CommonMethods {
 		 var_GSTTo				= args[22];
 		 var_QSTFrom			= args[23];
 		 var_QSTTo_DatePaymentMadeTtoEmployees	= args[24];
-		 var_TaxationYear	= args[32];
 		 var_adminUserName2		= "33011424-10000";//args[22];
+		 var_City				= args[25];
+		 var_Address			= args[26];
+		 var_Province			= args[27];
+		 var_postalCode			= args[28];
+		 var_SiteNumber			= args[29];
+		 var_SiteNumber_Edit	= args[30];
+		 var_CustomerNumber		= args[31];
+		 var_TaxationYear		= args[32];
+		 
 		 
 		
 		
@@ -120,6 +128,7 @@ public class PFS_Scripts extends CommonMethods {
 		 try {
 			 initialize();
 			 addAccount();
+			 
 			try {
 				 makeAPayment();
 				 searchTransaction();

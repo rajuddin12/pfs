@@ -20,6 +20,7 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 	public static String loc_next 			;
 	public static String loc_accountNumberField ;
 	public static String loc_done 			;
+	public static String loc_cancel 			;
 	public static String btn_next ;
 	public static String btn_save ;
 	public static String btn_done ;
@@ -30,6 +31,15 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 	public static String loc_editnickName;
 	public static String txt_edit_account;
 	public static String loc_col_edit_account;
+	//Address Details
+	public static String loc_City;
+	public static String loc_Address;
+	public static String loc_Province;
+	public static String loc_PostalCode;
+	public static String loc_SiteNumber;
+	public static String loc_CustomerNumber;
+	 
+	 
 	public static String loc_number_Of_accountPresentForPaymentType;
 	public static int number_Of_accountPresentForPaymentType;
 	//td[contains(text(),'Federal Payroll Deductions - Monthly/Quarterly -- EMPTX -- (PD7A)')]/..//td[3]/div
@@ -66,12 +76,21 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		loc_next 				= "//span[contains(text(),'Next')]";
 		loc_accountNumberField 	= "//input[contains(@id,'acctNumber')]";
 		loc_done 				= "//span[contains(text(),'Done')]";
+		loc_cancel				= "//span[contains(text(),'Cancel')]";
 		btn_next 				= "//span[contains(text(),'Next')]";
 		btn_save 				= "//span[contains(text(),'Save')]";
 		btn_done 				= "//span[contains(text(),'Done')]";
 		loc_remove_account		="//button[@id='tranForm:delbtn']";
 		loc_text_output_value 	="//span[@class='output-value'] | //span[contains(text(),'account number')]/following-sibling::div/span";
 		loc_accountRemovedMsg		= "//li[@role='alert']/span[text()='Account has been removed.']";
+		
+		////input[contains(@id,'companyName')]
+		loc_City				= "//input[contains(@id,'city')]";
+		loc_Address				= "";
+		loc_Province				= "";
+		loc_PostalCode				= "//input[contains(@id,'postalCode')]";
+		loc_SiteNumber				= "";
+		loc_CustomerNumber				= "";
 	}
 
 	/**
@@ -110,16 +129,30 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		clickOn(loc_paymentType, "paymentType " + var_paymentType);
 		Thread.sleep(10000);
 		clickOn(loc_next, "Next Button");
-		Thread.sleep(5000);
-		sendKeys(loc_accountNumberField, var_accountNumber, "Account Number");
 		Thread.sleep(10000);
+		sendKeys(loc_accountNumberField, var_accountNumber, "Account Number");
 		sendKeys(loc_nickName, var_nickName, "Nick Name");
-		Thread.sleep(2000);
+		// Add Address Details
+		/*sendKeys(loc_nickName, var_City, "Nick Name");
+		sendKeys(loc_nickName, var_Address, "Nick Name");
+		sendKeys(loc_nickName, var_Province, "Nick Name");
+		sendKeys(loc_nickName, var_postalCode, "Nick Name");
+		sendKeys(loc_nickName, var_SiteNumber, "Nick Name");
+		//sendKeys(loc_nickName, var_SiteNumber_Edit, "Nick Name");
+		sendKeys(loc_nickName, var_CustomerNumber, "Nick Name");*/
+		
 		clickOn(loc_next, "Next Button");
 		Thread.sleep(10000);
-		clickOn(loc_done, "Done Button");
-		Thread.sleep(20000);
-		System.out.println(loc_accountNumberSpace);
+		try {
+			clickOn(loc_done, "Done Button");
+			
+		} catch (Exception e) {
+			if(isElementPresent("//span[text()='This account already exists!']")) {
+				clickOn(loc_cancel, "Cancel Button");
+			}
+			Thread.sleep(20000);
+		}
+	
 		CommonMethods.verifyTextOf(CommonMethods.getElement(loc_accountNumberSpace), var_accountNumber, "Account Number");
 		ExecutionLog.log("Verified that account number '" + var_accountNumber + "' has been created successfully");
 		number_Of_accountPresentForPaymentType = getElements(loc_number_Of_accountPresentForPaymentType).size();
