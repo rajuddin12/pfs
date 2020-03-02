@@ -97,7 +97,9 @@ public class TestBase  {
 		try {
 			
 			filePath = System.getProperty("user.dir") + File.separator + "\\PFSTestData.xlsx";
+			System.out.println("=2="+filePath);
 			sheetName  = "ActiveData_SingleUser";
+			
 			/*var_paymentType			= ReadExcel.getCellData(1, 0, sheetName, filePath);
 			var_appURL				= ReadExcel.getCellData(1, 1, sheetName, filePath);
 			var_adminUserName 		= ReadExcel.getCellData(1, 2, sheetName, filePath);
@@ -130,7 +132,6 @@ public class TestBase  {
 	 */
 	public static WebDriver setDriver(String browserType, String appURL) {
 		initSession();
-		
 		if(browserType.equals(""))
 			browserType = browser;
 

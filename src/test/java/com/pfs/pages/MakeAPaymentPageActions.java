@@ -210,7 +210,7 @@ public class MakeAPaymentPageActions extends TestBase {
 			initialize_User2();
 			// BUG ID mention(https://jira.tools.thcoe.ca/browse/APTWAM-395) >> Navigate to Transaction Approval tab
 			ExecutionLog.log(ExecutionLog.color("red", "BUG ID: https://jira.tools.thcoe.ca/browse/APTWAM-395)"));
-			clickOn(FutureTransactionsPageActions.loc_TransactionHistory, "TransactionHistory");
+			clickOn(FutureTransactionsPageActions.loc_TransactionApprovals, "TransactionApprovals");
 			Thread.sleep(5000);
 			verifyPresenceOfElement(loc_pendingApproval, "Pending Approval status of " + var_accountNumber);
 			
