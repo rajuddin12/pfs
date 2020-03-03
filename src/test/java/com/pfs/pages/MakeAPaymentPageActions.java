@@ -45,6 +45,7 @@ public class MakeAPaymentPageActions extends TestBase {
 	public static String loc_DateMonthNoToEmployees;
 	public static String loc_NumberOfEmployee ;
 	public static String loc_TaxationYear;
+	public static String loc_pendingApproval_cancel;
 	
 	
 	
@@ -73,6 +74,7 @@ public class MakeAPaymentPageActions extends TestBase {
 		loc_TaxationYear		=	"//input[contains(@id,'periodYear')]";
 		
 		loc_pendingApproval		="//*[@id='mainForm:pending_data']/tr/td[contains(text(),'"+ var_accountNumber +"')]/../td[contains(text(),'Pending approval')]";
+		loc_pendingApproval_cancel	="//*[@id='mainForm:pending_data']/tr/td[contains(text(),'"+ var_accountNumber +"')]/../td[contains(text(),'Queued for cancellation')]";
 		loc_ApprovalButton 		= "//button[@id='ptranDetailForm:approveBtn']";
 		loc_OK_Approval		="//button[@id='ptranDetailForm:approveDialogOkBtnId']";
 		
@@ -236,7 +238,37 @@ public class MakeAPaymentPageActions extends TestBase {
 		
 	}
 	
-	
+	public static void validateAndApproveCancelledTranByUser_2() throws Exception {
+		try {
+			//close the browser/logout and Login with User-2
+			driver.close();
+			initialize_User2();
+			// BUG ID mention(https://jira.tools.thcoe.ca/browse/APTWAM-395) >> Navigate to Transaction Approval tab
+			ExecutionLog.log(ExecutionLog.color("red", "BUG ID: https://jira.tools.thcoe.ca/browse/APTWAM-395)"));
+			clickOn(FutureTransactionsPageActions.loc_TransactionApprovals, "TransactionApprovals");
+			Thread.sleep(5000);
+			verifyPresenceOfElement(loc_pendingApproval_cancel, "Queued for cancellation status of " + var_accountNumber);
+
+			//approve the transaction
+			clickOn(loc_pendingApproval_cancel, "Cancellation request");
+			Thread.sleep(5000);
+			clickOn(loc_ApprovalButton, "Approve button");
+			Thread.sleep(2000);
+			clickOn(loc_OK_Approval, "OK Approve button");
+			Thread.sleep(10000);
+		/*	var_confirmationNo_1  = getElement(loc_confMsgInfo).getText().split(":")[1].trim();
+			System.out.println(var_confirmationNo_1);
+			// logout
+			// login with User-1
+			driver.close();
+			initialize();*/
+		} catch (Exception e) {
+			ExecutionLog.log(ExecutionLog.color("red", "The Automation Script failed to approve the transaction. Please Analyze the executon report for further processing"));
+			e.printStackTrace();
+			driver.close();
+			initialize();
+		}
+	}
 	public static void 	selectDate(String loc, String var_Date, String nameOfLocator) throws Exception {
 		if(var_Date.length()>1) {
 		System.out.println("------selecting Date in " + nameOfLocator + "------");	
