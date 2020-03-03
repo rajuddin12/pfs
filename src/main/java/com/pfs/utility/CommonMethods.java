@@ -457,6 +457,16 @@ public class CommonMethods extends TestBase {
 	}
 	
 	/**
+	 * @author Rajuddin
+	 * @description Verify that the text is present on the webpage
+	 * @return Elemet Status, true: if present on the page else false
+	 */
+	public static Boolean isElementDisplayed(String Locator) {
+		return driver.findElement(By.xpath((Locator))).isDisplayed();
+
+	}
+	
+	/**
 	 * Verify element is not present on screen, if present then verify it is not be displayed
 	 * @param elements (Uniquely located element)
 	 * @param elementName

@@ -7,11 +7,9 @@
 		<listener
 			class-name="org.uncommons.reportng.JUnitXMLReporter" />
 	</listeners> -->
-	<test name="Federal - Softwood Lumber Products Export Chrg -- SLPEX">
+	<test name="Automation Execution for Single Authentication users">
 		<classes>
-			<!-- <class name="com.pfs.testengine.PFS_Scripts" /> -->
-			<class name="com.pfs.testengine.testHelp" />
-		<!-- 	<class name="com.pfs.utility.DBConnection" /> -->
+			<class name="com.pfs.testengine.PFS_Scripts" />
 		</classes>
 	</test>
 </suite>

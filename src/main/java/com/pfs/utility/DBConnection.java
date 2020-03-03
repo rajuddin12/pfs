@@ -15,14 +15,14 @@ import com.pfs.reporting.ExecutionLog;
 public class DBConnection {
 
 //	DEV
-//	static String url = "jdbc:mysql://localhost:3307/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-//	static String username = "aptsa";
-//	static String password = "ELHl3XT6LaDfCEItos989d0NiaX5CoAXhZrF7y4S";
-//	
+	static String url = "jdbc:mysql://localhost:3307/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	static String username = "aptsa";
+	static String password = "ELHl3XT6LaDfCEItos989d0NiaX5CoAXhZrF7y4S";
+	
 //	QA
-	static String url = "jdbc:mysql://localhost:3308/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	static String username = "apt";
-	static String password = "7NfbD7AZVB5y9tww";
+//	static String url = "jdbc:mysql://localhost:3308/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+//	static String username = "apt";
+//	static String password = "7NfbD7AZVB5y9tww";
 	static Connection conn;
 	static Statement stmt ;
 

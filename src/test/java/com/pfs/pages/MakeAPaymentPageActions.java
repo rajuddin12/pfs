@@ -148,11 +148,7 @@ public class MakeAPaymentPageActions extends TestBase {
 			Thread.sleep(2000);
 			selectDate(loc_GSTTo, 	var_GSTTo, 	 "GSTTo");
 			Thread.sleep(2000);
-			try {
-				selectDate(loc_EndDate, var_endDate, "End Date");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			
 			
 			Thread.sleep(2000);
 			selectDate(loc_DueDate, var_DueDate, "Due Date");
@@ -162,8 +158,9 @@ public class MakeAPaymentPageActions extends TestBase {
 		}
 		
 		sendKeys(loc_NumberOfEmployee, var_NumberEmployees, "NumberEmployees");
-		clickOn(loc_periodEnding, var_PeriodEnding);
-		clickOn("//li[contains(text(),'" + var_PeriodEnding + "')]", var_PeriodEnding);
+		selectDate(loc_periodEnding, var_PeriodEnding, "var_PeriodEnding");
+		/*clickOn(loc_periodEnding, var_PeriodEnding);
+		clickOn("//li[contains(text(),'" + var_PeriodEnding + "')]", var_PeriodEnding);*/
 		Thread.sleep(10000);
 		
 //		List<WebElement> elems = driver.findElements(By.xpath("//span[contains(@id,'amt') and contains(@id,'_input') and @type='text']"));
@@ -251,13 +248,20 @@ public class MakeAPaymentPageActions extends TestBase {
 		String day = splitDate[2].trim();
 		
 
-		if(isElementPresent("//select[@class='ui-datepicker-year']")) {
-			selectValueFromDropDown("//select[@class='ui-datepicker-year']", year, "select year");
-			selectValueFromDropDown("//select[@class='ui-datepicker-month']", month, "select year");
-			clickOn("//a[text()='" + day+"']", "Select Day: " + day);
+		try {
+			if(isElementDisplayed("//select[@class='ui-datepicker-year']")) {
+				
+				selectValueFromDropDown("//select[@class='ui-datepicker-year']", year, "select year");
+				selectValueFromDropDown("//select[@class='ui-datepicker-month']", month, "select year");
+				clickOn("//a[text()='" + day+"']", "Select Day: " + day);		
 		} else {
 			clickOn("//li[text()='" + var_Date+"']", "Select Day");
 		}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	
+		Thread.sleep(5000);
 		
 	}
 	}

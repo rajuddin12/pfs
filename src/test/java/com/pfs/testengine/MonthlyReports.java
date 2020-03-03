@@ -16,7 +16,7 @@ public class MonthlyReports {
 
 	ArrayList<String> CSVData = new  ArrayList<String> ();
 	BufferedReader csvReader = null;
-	String fileName = "6_40_86_1_desj86_no_activity_users_1.csv";
+	String fileName = "6_40_60_3_citibank_cancel_1.csv";
 
 	String paiment_id;
 	String acct_nbr;
@@ -47,12 +47,13 @@ public class MonthlyReports {
 	
 	private String getValues_MonthlyReport() {
 	//	getDate();
-		String var_TransDate 			 ="20200105";
+		String var_TransDate 			 ="20200302";
 		String var_TransTime 			 ="9464348";
-		String var_PaymentDate 			 ="20200105";
-		String var_FillingDate  		 ="20200105";
-		String var_ReportThruDate  		 ="20200105";
-		String var_fi_settlement_date 	 ="20200105";
+	//	String var_TransTime 			 ="9464348";
+		String var_PaymentDate 			 ="20200302";
+		String var_FillingDate  		 ="20200302";
+		String var_ReportThruDate  		 ="20200302";
+		String var_fi_settlement_date 	 ="20200302";
 		String var_recipient_settlement_date = "0";
 		String var_CreatedDateWithTime = "2020-01-01 10:00:00";
 		String var_UpdatedDateWithTime = "2020-01-01 10:00:00";

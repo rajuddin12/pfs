@@ -131,7 +131,12 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 		clickOn(loc_next, "Next Button");
 		Thread.sleep(10000);
 		sendKeys(loc_accountNumberField, var_accountNumber, "Account Number");
-		sendKeys(loc_nickName, var_nickName, "Nick Name");
+		try {
+			sendKeys(loc_nickName, var_nickName, "Nick Name");
+		} catch (Exception e) {
+			ExecutionLog.log("Nick Name does not exist");
+		}
+		
 		// Add Address Details
 		/*sendKeys(loc_nickName, var_City, "Nick Name");
 		sendKeys(loc_nickName, var_Address, "Nick Name");
@@ -150,8 +155,9 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 			if(isElementPresent("//span[text()='This account already exists!']")) {
 				clickOn(loc_cancel, "Cancel Button");
 			}
-			Thread.sleep(20000);
+			
 		}
+		Thread.sleep(20000);
 	
 		CommonMethods.verifyTextOf(CommonMethods.getElement(loc_accountNumberSpace), var_accountNumber, "Account Number");
 		ExecutionLog.log("Verified that account number '" + var_accountNumber + "' has been created successfully");

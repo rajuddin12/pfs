@@ -84,7 +84,6 @@ public class PFS_Scripts extends CommonMethods {
 			 // WehereAS on UAT there is space issue
 			 var_paymentTypeSpace 	= var_paymentType;
 		 } else  var_paymentTypeSpace 	= args[1];
-		
 		 var_appURL 			= args[2];
 		 var_adminUserName 		= args[3];
 		 var_adminPass 			= args[4];
@@ -127,7 +126,7 @@ public class PFS_Scripts extends CommonMethods {
 		 new FutureTransactionsPageActions();
 		 try {
 			 initialize();
-			 addAccount();
+//			 addAccount();
 			 
 			try {
 				 makeAPayment();
@@ -139,7 +138,7 @@ public class PFS_Scripts extends CommonMethods {
 				 
 				 //driver.quit();
 			 } catch (Exception e) {
-				 ExecutionLog.log(ExecutionLog.color("red", "The Automation Script failed while doing payment. Please Analyze the executon report for further processing"));
+				 ExecutionLog.log(ExecutionLog.color("red", "BUG The Automation Script failed while doing payment. Please Analyze the executon report for further processing"));
 				 ReportScreenshot.captureAndDisplayScreenShots(driver);
 				 ExtentTestManager.getTest().log(LogStatus.INFO, org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(e));
 				 e.printStackTrace();
