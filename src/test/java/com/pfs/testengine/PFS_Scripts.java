@@ -126,7 +126,7 @@ public class PFS_Scripts extends CommonMethods {
 		 new FutureTransactionsPageActions();
 		 try {
 			 initialize();
-//			 addAccount();
+			 addAccount();
 			 
 			try {
 				 makeAPayment();

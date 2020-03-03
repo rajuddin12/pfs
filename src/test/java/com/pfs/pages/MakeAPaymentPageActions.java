@@ -159,6 +159,7 @@ public class MakeAPaymentPageActions extends TestBase {
 		
 		sendKeys(loc_NumberOfEmployee, var_NumberEmployees, "NumberEmployees");
 		selectDate(loc_periodEnding, var_PeriodEnding, "var_PeriodEnding");
+		selectDate(loc_EndDate, var_endDate, "End Date");
 		/*clickOn(loc_periodEnding, var_PeriodEnding);
 		clickOn("//li[contains(text(),'" + var_PeriodEnding + "')]", var_PeriodEnding);*/
 		Thread.sleep(10000);
@@ -174,7 +175,7 @@ public class MakeAPaymentPageActions extends TestBase {
 //		}
 		
 		sendKeys(loc_enterAmountField, "50", "Payment");
-
+		
 		//sendKeys(loc_paymentDate, var_paymentDate, "Payment Date");
 //		selectDate(loc_paymentDate, var_paymentDate, "Payment Date"); already covered in above if-else loop
 		keyboard_TAB();
