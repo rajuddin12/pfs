@@ -157,8 +157,7 @@ public class AddEditAndRemovePaymentTypePageActions extends TestBase {
 			}
 			
 		}
-		Thread.sleep(20000);
-	
+		Thread.sleep(10000);
 		CommonMethods.verifyTextOf(CommonMethods.getElement(loc_accountNumberSpace), var_accountNumber, "Account Number");
 		ExecutionLog.log("Verified that account number '" + var_accountNumber + "' has been created successfully");
 		number_Of_accountPresentForPaymentType = getElements(loc_number_Of_accountPresentForPaymentType).size();

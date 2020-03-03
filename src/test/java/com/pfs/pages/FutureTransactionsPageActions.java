@@ -131,12 +131,13 @@ public class FutureTransactionsPageActions extends TestBase {
 			verifyTextOf(getElement(loc_confMsgInfo), "The transaction is now in Pending Cancellation status and requires 1 approver(s).", "Pending approval Status");
 			MakeAPaymentPageActions.validateAndApproveCancelledTranByUser_2();
 			var_confirmationNo_2 = getElement(loc_ConfirmationNo_2).getText().trim();
-			//System.out.println(var_confirmationNo_2);			
+			System.out.println(var_confirmationNo_2);			
 			
 		}else {
 			verifyTextOf(getElement(loc_message), "Cancellation request has been successful", "To be processed Status");
 			var_confirmationNo_2 = getElement(loc_ConfirmationNo_2).getText().trim();
-			//System.out.println(var_confirmationNo_2);			
+
+			System.out.println(var_confirmationNo_2);	
 		}
 		
 		

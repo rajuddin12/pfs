@@ -30,11 +30,11 @@ public class PFS_Scripts extends CommonMethods {
 
 	@DataProvider(name = "PFSTestData")
 	public Object[][] PFSTestData() throws Exception {
-			initSession();
+		  	initSession();
 			ReadExcel.setFileConfig(filePath, sheetName);
 			int totalRows = ReadExcel.getRowCount(sheetName);
 			int totalCols = ReadExcel.getColumnCount(sheetName, 0);
-			Object[][] tabArray = new Object[totalRows-1][totalCols];			
+			Object[][] tabArray = new Object[totalRows-1][totalCols];	
 			try {
 			int startCol = 0;
 			int ci, cj;
@@ -53,6 +53,7 @@ public class PFS_Scripts extends CommonMethods {
 			System.out.println("Could not read the Excel sheet");
 			e.printStackTrace();
 		}
+			
 		return(tabArray);
 
 	}
@@ -78,7 +79,8 @@ public class PFS_Scripts extends CommonMethods {
 	@Test(dataProvider= "PFSTestData", groups = "Regression", enabled = true, description="PFS_TestFunctionalities")
 	public void PFS_TestFunctionalities(String[] args) throws Exception {
 	//public void PFS_TestFunctionalities( String paymentType, String paymentTypeSpace, String appURL,  String userName,  String pass,  String accountNumber,  String editAccountNumber, String paymentDate, String endDate) throws Exception {
-		 var_paymentType 		= args[0];
+		
+		var_paymentType 		= args[0];
 		 if(var_appURL.contains("pfs")) {
 			 // In PFS the name of payment type is same at Add payment page and at Registered Payment and Account page
 			 // WehereAS on UAT there is space issue
@@ -106,7 +108,6 @@ public class PFS_Scripts extends CommonMethods {
 		 var_GSTTo				= args[22];
 		 var_QSTFrom			= args[23];
 		 var_QSTTo_DatePaymentMadeTtoEmployees	= args[24];
-		 var_adminUserName2		= "33011424-10000";//args[22];
 		 var_City				= args[25];
 		 var_Address			= args[26];
 		 var_Province			= args[27];
@@ -115,10 +116,8 @@ public class PFS_Scripts extends CommonMethods {
 		 var_SiteNumber_Edit	= args[30];
 		 var_CustomerNumber		= args[31];
 		 var_TaxationYear		= args[32];
-		 
-		 
-		
-		
+		 var_adminUserName2		= args[33];
+			
 		 // Initialize Objects
 		 new AddEditAndRemovePaymentTypePageActions();
 		 new RegisteredPaymentsAndAccountsPageActions();
