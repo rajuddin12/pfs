@@ -129,7 +129,9 @@ public class FutureTransactionsPageActions extends TestBase {
 
 		if (var_userType.equals("multiAuthUser")) {
 			verifyTextOf(getElement(loc_confMsgInfo), "The transaction is now in Pending Cancellation status and requires 1 approver(s).", "Pending approval Status");
-			
+			MakeAPaymentPageActions.validateAndApproveCancelledTranByUser_2();
+			var_confirmationNo_2 = getElement(loc_ConfirmationNo_2).getText().trim();
+			System.out.println(var_confirmationNo_2);			
 			
 		}else {
 			verifyTextOf(getElement(loc_message), "Cancellation request has been successful", "To be processed Status");
@@ -138,11 +140,11 @@ public class FutureTransactionsPageActions extends TestBase {
 		}
 		
 		
-		clickOn("//span[text()='Back']", "Back Button");
+		clickOn("//span[text()='Done']", "Done Button");
 		Thread.sleep(5000);
 		ExecutionLog.log(ExecutionLog.color("blue", "===================================================="));
 		ExecutionLog.log("");
-		// driver.close();
+		//driver.close();
 
 	}
 
